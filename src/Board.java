@@ -1,94 +1,141 @@
-public class Board {
+import java.util.ArrayList;
+import java.util.List;
 
-    Board(Player[] players){
-        this._players = players;
+public class Board{
+    Cell[][] board = new Cell[][]{
+            {Cell.BLANK, Cell.BLANK, Cell.BLANK},
+            {Cell.BLANK, Cell.BLANK, Cell.BLANK},
+            {Cell.BLANK, Cell.BLANK, Cell.BLANK}
+    };
+
+    public void Move(Move move){
+        board[move.x][move.y] = move.inp;
     }
 
-    Board(){
-
+    public void clearMove(Move move){
+        board[move.x][move.y] = Cell.BLANK;
     }
 
-    private Element[][] board = new Element[3][3];
+    public List<Move> findAvailableMoves(Cell c){
+        List<Move> moves = new ArrayList<Move>();
 
-    public void makeMove(AI.Move move, Player player){
-
-        board[move.x][move.y].setPlayer(player);
-    }
-
-    public Element[][] getElementArray(){
-        return board;
-    }
-
-    public Player hasWon(){
-        for (Player player : _players) {
-            if(board[0][0].getPlayer() == player && board[1][1].getPlayer() == player && board[2][2].getPlayer() == player){
-                return player;
-            }
-            if(board[0][2].getPlayer() == player && board[1][1].getPlayer() == player && board[2][0].getPlayer() == player){
-                return player;
-            }
-            for(int i = 0 ; i < 3 ; i++ ){
-                if(board[i][0].getPlayer() == player && board[i][1].getPlayer() == player && board[i][2].getPlayer() == player){
-                    return player;
-                }
-                if(board[0][i].getPlayer() == player && board[1][i].getPlayer() == player && board[2][i].getPlayer() == player){
-                    return player;
+        for(int i = 0 ; i < board.length ; i++ ){
+            for (int j = 0 ; j < board[i].length ; j++ ){
+                if(board[i][j] == Cell.BLANK){
+                    moves.add(new Move(i,j,c));
                 }
             }
         }
-        return null;
+        return moves;
+    }
+    
+    public enum Result{
+        Unknown,
+        XWins,
+        OWins,
+        Tie
     }
 
-    Player[] _players;
-}
-
-class Element{
-
-    private Player player;
-
-    Element(){
-        this.player = null;
+    public enum Cell {
+        X,
+        O,
+        BLANK
     }
 
-    public void setPlayer(Player player){
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public boolean isEmpty(){
-        return player == null;
-    }
-}
-
-class Player{
-    int playerID;
-    char playerChar;
-    boolean isHuman;
-
-    Player(int ID, char Char, boolean isHuman){
-        this.playerID = ID;
-        this.playerChar = Char;
-        this.isHuman = isHuman;
-    }
-
-    class Player1{
-        Player1(boolean Human){
-            playerID = 0;
-            playerChar = 'O';
-            isHuman = Human;
+    public Result GetResult(){
+        if(board[0][0] != Cell.BLANK) {
+            if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        if(board[0][2] != Cell.BLANK) {
+            if (board[0][2] == board[1][1] && board[0][2] == board[2][0]) {
+                if (board[0][2] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        if(board[0][0] != Cell.BLANK) {
+            if (board[0][0] == board[0][1] && board[0][0] == board[0][2]) {
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        if(board[1][0] != Cell.BLANK) {
+            if (board[1][0] == board[1][1] && board[1][0] == board[1][2]) {
+                if (board[1][0] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        if(board[2][0] != Cell.BLANK) {
+            if (board[2][0] == board[2][1] && board[2][0] == board[2][2]) {
+                if (board[2][0] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
         }
 
-    }
-    class Player2{
-        Player2(boolean human){
-            playerID = 1;
-            playerChar = 'X';
-            isHuman = human;
+        if(board[0][0] != Cell.BLANK) {
+            if (board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
         }
+        if(board[0][1] != Cell.BLANK) {
+            if (board[0][1] == board[1][1] && board[0][1] == board[2][1]) {
+                if (board[0][1] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        if(board[0][2] != Cell.BLANK) {
+            if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) {
+                if (board[0][2] == Cell.X) {
+                    return Result.XWins;
+                } else {
+                    return Result.OWins;
+                }
+            }
+        }
+        for (Cell[] cells : board) {
+            for (Cell cell : cells) {
+                if (cell == Cell.BLANK) {
+                    return Result.Unknown;
+                }
+            }
+        }
+        return Result.Tie;
     }
 
+}
 
+class Move{
+    int x;
+    int y;
+    Board.Cell inp;
+
+    Move(int x, int y, Board.Cell inp){
+        this.x = x;
+        this.y = y;
+        this.inp = inp;
+    }
 }
