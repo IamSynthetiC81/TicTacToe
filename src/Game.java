@@ -4,11 +4,6 @@ public class Game {
 
     Board board = new Board();
 
-    Player Player1 = new Player(+1,'X',"Player1");
-    Player Player2 = new Player(-1,'O',"Player2");
-
-    boolean isXTurn = true;
-
     public Game() {
         GUI ui = new GUI();
         Scanner inp = new Scanner(System.in);
@@ -19,32 +14,16 @@ public class Game {
             int x = Integer.parseInt(arr[0]);
             int y = Integer.parseInt(arr[1]);
             if(x > 2 || y > 2 || x < 0 || y < 0){
-                System.out.println("OUT OF BOUNDS MOTHERF@CKER");
+                System.out.println("OUT OF BOUNDS");
             }else if(board.board[x][y] == Board.Cell.BLANK){
                 Move move = new Move(x,y,player);
                 board.Move(move);
                 board.Move(AI.getBestMove(board));
                 ui.printBoard(board);
             }else{
-                System.out.println("Wrong moth@rf@cker");
+                System.out.println("Wrong move");
             }
         }
-
-    }
-
-
-
-    static class Player{
-        int _ID;
-        char _c;
-        String _name;
-
-        Player(int ID, char c, String name ){
-            this._ID = ID;
-            this._c = c;
-            this._name = name;
-        }
-
 
     }
 
