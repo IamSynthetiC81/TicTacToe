@@ -1,11 +1,29 @@
 import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.util.Iterator;
 
-public class List<E> {
+
+public class List<E> implements Iterable<E>{
     private static final int DEFAULT_CAPACITY = 1;
 
     private Object[] elements;
     private int size = 0;
+
+    public Iterator<E> iterator(){
+        return new MyIterator();
+    }
+
+    class MyIterator implements Iterator<E>{
+        private int index = 0;
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public E next() {
+            return get(index++);
+        }
+    }
 
     public List(){
         elements = new Object[DEFAULT_CAPACITY];
@@ -39,10 +57,7 @@ public class List<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public E remove(E e){
-//        if(i >= size || i < 0){
-//            throw new IndexOutOfBoundsException("Index " + i + ", Size " + i);
-//        }
+    public void remove(E e){
         boolean itemPassed = false;
         for(int i = 0 ; i < elements.length -1 ; i++ ){
             if(elements[i].equals(e)){
@@ -51,11 +66,10 @@ public class List<E> {
                 int numElts = elements.length - (i + 1);
                 System.arraycopy(elements, i + 1, elements, i, numElts);
                 size--;
-                return (E) item;
+                return;
             }
-
         }
-        throw new NoSuchElementException("Element does not exist");
+        //throw new NoSuchElementException("Element does not exist");
     }
 
     public int size(){
