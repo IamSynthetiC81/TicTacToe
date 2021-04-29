@@ -5,17 +5,29 @@ public class AI_Optimized{
     public static Board.Cell human = Board.Cell.X;
     public static Board.Cell ai = Board.Cell.O;
 
-    public static Move getBestMove(Board board){
+    public static Move getBestMove(Board board,Board.Cell player){
         Move bestMove = null;
-        int bestScore = -2;
-        List<Move> moves = board.findAvailableMoves(ai,board);
+        int bestScore;
+        if(player == ai) {
+            bestScore = -100;
+        }else{
+            bestScore = 100;
+        }
+        List<Move> moves = board.findAvailableMoves(player,board);
         for(Move move : moves){
             board.Move(move);
-            int score = minimax(board, 9 , false,-100,100);
+            int score = minimax(board, 9 , player == human,-100,100);
             board.clearMove(move);
-            if(score > bestScore){
-                bestScore = score;
-                bestMove = move;
+            if(player == ai) {
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = move;
+                }
+            }else{
+                if (score < bestScore) {
+                    bestScore = score;
+                    bestMove = move;
+                }
             }
         }
         if (bestMove != null && bestMove.hasSymmetries) {

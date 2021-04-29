@@ -12,6 +12,7 @@ public class Frame extends JFrame implements ActionListener{
     JButton[] buttons = new JButton[9];
     JButton replay = new JButton("REPLAY");
     JButton back = new JButton("BACK");
+    JButton hint = new JButton("HINT");
     /*=====================BOTTOM PANEL=====================*/
     BottomPanel bottomPanel;
     /*=====================HEADER=====================*/
@@ -36,6 +37,12 @@ public class Frame extends JFrame implements ActionListener{
             buttons[i].addActionListener(this);
         }
         undo.addActionListener(this);
+        undo.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+        undo.setBackground(new Color(160,160,160));
+
+        hint.addActionListener(this);
+        hint.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+        hint.setBackground(new Color(160,160,160));
         /*=====================PANELS INITIALIZATION=====================*/
         scoreboard           = new LeftPanel();
         settings             = new RightPanel();
@@ -45,7 +52,8 @@ public class Frame extends JFrame implements ActionListener{
         /*=====================WINNER PANEL=====================*/
         winnerFrame = new JPanel();
         winnerFrame.setBounds(0,0,500,500);
-        winnerFrame.setOpaque(false);
+        winnerFrame.setBackground(new Color(0, 0, 0, 20));
+        winnerFrame.setOpaque(true);
         winnerFrame.setFocusable(false);
         winnerFrame.setLayout(new BorderLayout(10,10));
         /*=====================WINNER LABEL=====================*/
@@ -138,21 +146,28 @@ public class Frame extends JFrame implements ActionListener{
             }else if(winner == Board.Result.OWins){
                 winnerLabel.setText("O WINS");
             }else{
-                winnerLabel.setText("It is a Tie");
+                winnerLabel.setText("TIE");
             }
             back.setOpaque(true);
+            back.setEnabled(true);
             replay.setOpaque(true);
+            replay.setEnabled(true);
             mainPanel.moveToBack(board);
         }else{
             back.setOpaque(false);
+            back.setEnabled(false);
             replay.setOpaque(false);
+            replay.setEnabled(false);
             mainPanel.moveToFront(board);
         }
     }
 
+    private void Hint(Move hint){
+        buttons[(hint.x*3) + hint.y].setBackground(new Color(120, 80, 80));
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        Move AIMove = null;
         for (int i = 0; i < buttons.length; i++) {
             if (e.getSource() == buttons[i]) {
                 game.parseMove(new Move(i / 3, i % 3, Board.Cell.X));
@@ -161,14 +176,13 @@ public class Frame extends JFrame implements ActionListener{
         if (e.getSource() == replay) {
             game.newGame();
             updateBoard();
-            mainPanel.moveToFront(board);
-        }
-        if(e.getSource() == undo){
+        }else if(e.getSource() == undo){
             game.undo();
             game.undo();
+        }else if(e.getSource() == hint){
+            Hint(game.giveHint());
+            return;
         }
-        back.setOpaque(false);
-        replay.setOpaque(false);
         updateBoard();
     }
 
@@ -188,7 +202,9 @@ public class Frame extends JFrame implements ActionListener{
             this.setBackground(new Color(60, 63, 65));
             this.setBounds(0, 0, 500, 500);
             this.setBorder(BorderFactory.createRaisedBevelBorder());
+            this.setLayout(new GridBagLayout());
             this.add(undo);
+            this.add(hint);
         }
     }
 

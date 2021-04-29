@@ -10,10 +10,14 @@ public class Game {
         Move AIMove;
         board.Move(move);
         if(board.GetResult() == Board.Result.Unknown) {
-            AIMove = AI_Optimized.getBestMove(board);
+            AIMove = AI_Optimized.getBestMove(board, Board.Cell.O);
             GameMoves.add(AIMove);
             board.Move(AIMove);
         }
+    }
+
+    public Move giveHint(){
+        return AI_Optimized.getBestMove(board, Board.Cell.X);
     }
 
     public void newGame(){
@@ -21,13 +25,14 @@ public class Game {
             Arrays.fill(board.board[i], Board.Cell.BLANK);
         }
         GameMoves.empty();
-        System.out.println("empoty");
     }
 
     public void undo(){
-        Move moveToUndo = GameMoves.get(GameMoves.size()-1);
-        board.board[moveToUndo.x][moveToUndo.y] = Board.Cell.BLANK;
-        GameMoves.remove(moveToUndo);
+        if(GameMoves.size() > 0) {
+            Move moveToUndo = GameMoves.get(GameMoves.size() - 1);
+            board.board[moveToUndo.x][moveToUndo.y] = Board.Cell.BLANK;
+            GameMoves.remove(moveToUndo);
+        }
     }
 
     static class GUI{
