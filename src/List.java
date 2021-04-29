@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Iterator;
 
-
 public class List<E> implements Iterable<E>{
     private static final int DEFAULT_CAPACITY = 1;
 

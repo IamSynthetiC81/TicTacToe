@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class AI_Optimized {
+public class AI_Optimized{
 
     public static Board.Cell human = Board.Cell.X;
     public static Board.Cell ai = Board.Cell.O;
@@ -8,10 +8,10 @@ public class AI_Optimized {
     public static Move getBestMove(Board board){
         Move bestMove = null;
         int bestScore = -2;
-        List<Move> moves = board.findAvailableMoves(ai,board.board);
+        List<Move> moves = board.findAvailableMoves(ai,board);
         for(Move move : moves){
             board.Move(move);
-            int score = minimax(board, 8 , false,-100,100);
+            int score = minimax(board, 9 , false,-100,100);
             board.clearMove(move);
             if(score > bestScore){
                 bestScore = score;
@@ -30,23 +30,22 @@ public class AI_Optimized {
         Board.Result winner = board.GetResult();
         if (winner != Board.Result.Unknown || depth == 0) {
             if(winner == Board.Result.OWins){
-                return 2;
+                return depth+1;
             }else if (winner == Board.Result.XWins){
-                return -2;
+                return -(depth+1);
             }else if (winner == Board.Result.Tie){
                 return 0;
             }
         }
 
-//        List<Move> moves = board.findAvailableMoves(maxPlayer ? ai : human, board.board);
-        List<Move> moves = board.findAvailableMoves(maxPlayer ? ai : human, board.board);
+        List<Move> moves = board.findAvailableMoves(maxPlayer ? ai : human, board);
 
         int bestScore;
         if(maxPlayer) {
             bestScore = -100;
             for (Move move : moves) {
                 board.Move(move);
-                int currentScore = minimax(board, depth - 1, false, alpha, beta);
+                int currentScore = minimax(board,depth - 1, false, alpha, beta);
                 board.clearMove(move);
                 bestScore = Math.max(bestScore, currentScore);
                 alpha = Math.max(alpha, currentScore);
@@ -58,7 +57,7 @@ public class AI_Optimized {
             bestScore = +100;
             for (Move move : moves) {
                 board.Move(move);
-                int currentScore = minimax(board, depth - 1, true, alpha, beta);
+                int currentScore = minimax(board,depth - 1, true, alpha, beta);
                 board.clearMove(move);
                 bestScore = Math.min(bestScore, currentScore);
                 beta = Math.min(currentScore, beta);
