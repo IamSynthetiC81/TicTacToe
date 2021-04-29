@@ -1,5 +1,5 @@
 public interface BoardHandler{
 
-    Move parseMove(Move move);
+    void parseMove(Move move);
 
 }

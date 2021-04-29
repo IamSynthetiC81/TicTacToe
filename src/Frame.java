@@ -8,7 +8,7 @@ public class Frame extends JFrame implements ActionListener{
     public Game game = new Game();
     Board.Result winner = Board.Result.Unknown;
     /*=====================BUTTONS=====================*/
-    JButton reset = new JButton("RESET");
+    JButton undo = new JButton("UNDO");
     JButton[] buttons = new JButton[9];
     JButton replay = new JButton("REPLAY");
     JButton back = new JButton("BACK");
@@ -35,7 +35,7 @@ public class Frame extends JFrame implements ActionListener{
             buttons[i]       = new JButton(" ");
             buttons[i].addActionListener(this);
         }
-        reset.addActionListener(this);
+        undo.addActionListener(this);
         /*=====================PANELS INITIALIZATION=====================*/
         scoreboard           = new LeftPanel();
         settings             = new RightPanel();
@@ -143,6 +143,10 @@ public class Frame extends JFrame implements ActionListener{
             back.setOpaque(true);
             replay.setOpaque(true);
             mainPanel.moveToBack(board);
+        }else{
+            back.setOpaque(false);
+            replay.setOpaque(false);
+            mainPanel.moveToFront(board);
         }
     }
 
@@ -154,13 +158,14 @@ public class Frame extends JFrame implements ActionListener{
                 game.parseMove(new Move(i / 3, i % 3, Board.Cell.X));
             }
         }
-        if (e.getSource() == reset || e.getSource() == replay) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    game.board.board[i][j] = Board.Cell.BLANK;
-                }
-            }
+        if (e.getSource() == replay) {
+            game.newGame();
+            updateBoard();
             mainPanel.moveToFront(board);
+        }
+        if(e.getSource() == undo){
+            game.undo();
+            game.undo();
         }
         back.setOpaque(false);
         replay.setOpaque(false);
@@ -183,7 +188,7 @@ public class Frame extends JFrame implements ActionListener{
             this.setBackground(new Color(60, 63, 65));
             this.setBounds(0, 0, 500, 500);
             this.setBorder(BorderFactory.createRaisedBevelBorder());
-            this.add(reset);
+            this.add(undo);
         }
     }
 

@@ -34,7 +34,6 @@ public class List<E> implements Iterable<E>{
         }
         elements[size++] = e;
     }
-
     @SuppressWarnings("unchecked")
     public E get(int i){
         if(i >= size || i < 0){
@@ -55,17 +54,20 @@ public class List<E> implements Iterable<E>{
         return (E) item;
     }
 
+    public void empty(){
+        elements = new Object[DEFAULT_CAPACITY];
+        size = 0;
+    }
+
     @SuppressWarnings("unchecked")
     public void remove(E e){
-        boolean itemPassed = false;
-        for(int i = 0 ; i < elements.length -1 ; i++ ){
+        for(int i = 0 ; i < elements.length ; i++ ){
             if(elements[i].equals(e)){
                 Object item = elements[i];
 
                 int numElts = elements.length - (i + 1);
                 System.arraycopy(elements, i + 1, elements, i, numElts);
                 size--;
-                return;
             }
         }
         //throw new NoSuchElementException("Element does not exist");
