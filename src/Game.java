@@ -1,46 +1,37 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Game {
 
     Board board = new Board();
+    List<Move> GameMoves = new List<>();
 
-    public Game() {
-        GUI ui = new GUI();
-        Scanner inp = new Scanner(System.in);
-        Board.Cell player = Board.Cell.X;
-        while(board.GetResult() == Board.Result.Unknown){
-            String in = inp.nextLine();
-            String[] arr = in.split("\\.",2);
-            int x;
-            int y;
-            try {
-                x = Integer.parseInt(arr[0]);
-                y = Integer.parseInt(arr[1]);
-            }catch (NumberFormatException e){
-                System.out.println("oi you wankah !");
-                x = 3;
-                y = 3;
-            }
-            if(x > 2 || y > 2 || x < 0 || y < 0){
-                System.out.println("OUT OF BOUNDS");
-            }else if(board.board[x][y] == Board.Cell.BLANK){
-                Move move = new Move(x,y,player);
-                board.Move(move);
-                if(board.GetResult() == Board.Result.Unknown) {
-                    board.Move(AI_Optimized.getBestMove(board));
-                }
-                ui.printBoard(board);
-            }else{
-                System.out.println("Wrong move");
-            }
+    public void parseMove(Move move){
+        GameMoves.add(move);
+        Move AIMove;
+        board.Move(move);
+        if(board.GetResult() == Board.Result.Unknown) {
+            AIMove = AI_Optimized.getBestMove(board, Board.Cell.O);
+            GameMoves.add(AIMove);
+            board.Move(AIMove);
         }
-        Board.Result winner = board.GetResult();
-        if (winner == Board.Result.XWins){
-            System.out.println("X Wins");
-        }else if (winner == Board.Result.OWins){
-            System.out.println("O Wins");
-        }else{
-            System.out.println("It is a Tie");
+    }
+
+    public Move giveHint(){
+        return AI_Optimized.getBestMove(board, Board.Cell.X);
+    }
+
+    public void newGame(){
+        for(int i = 0 ; i < board.board.length ; i++ ){
+            Arrays.fill(board.board[i], Board.Cell.BLANK);
+        }
+        GameMoves.empty();
+    }
+
+    public void undo(){
+        if(GameMoves.size() > 0) {
+            Move moveToUndo = GameMoves.get(GameMoves.size() - 1);
+            board.board[moveToUndo.x][moveToUndo.y] = Board.Cell.BLANK;
+            GameMoves.remove(moveToUndo);
         }
     }
 
@@ -60,5 +51,7 @@ public class Game {
             }
         }
     }
+
+
 
 }
