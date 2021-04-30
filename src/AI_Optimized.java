@@ -125,15 +125,16 @@ public class AI_Optimized {
 
     public static List<Move> checkForSymmetries(List<Move> moves, Board.Cell[][] original){
         List<Board> _boards = new List<>();
-        List<Move> movesToDelete = new List<>();
+        List<Move> _movesToDelete = new List<>();
 
         Board[] rotatedBoards = new Board[3];
         rotatedBoards[0] = new Board();
         rotatedBoards[1] = new Board();
         rotatedBoards[2] = new Board();
 
-        Board buffer = new Board();
+        Board buffer;
         for(Move move : moves){
+            buffer = new Board();
             buffer.copyBoard(original);
             buffer.Move(move);
             _boards.add(buffer);
@@ -148,13 +149,13 @@ public class AI_Optimized {
                     if (rotatedBoard.sameBoard(_boards.get(i))) {
                         moves.get(movesIndex).symmetries.add(moves.get(i));
                         moves.get(movesIndex).hasSymmetries = true;
-                        movesToDelete.add(moves.get(i));
+                        _movesToDelete.add(moves.get(i));
                         break;
                     }
                 }
             }
         }
-        for (Move move : movesToDelete) {
+        for (Move move : _movesToDelete) {
             moves.remove(move);
         }
         return moves;

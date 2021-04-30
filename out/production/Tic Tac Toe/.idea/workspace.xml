@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ba2f7d6d-304b-4ad4-8fc4-e282df6b7ced" name="Default Changelist" comment="Custom list iteration addition" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1qhgoPLOEYytD6QHgCFzCqN3ggM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="AI_Optimized" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="AI_Optimized" />
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main" />
+      <module name="Tic Tac Toe" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba2f7d6d-304b-4ad4-8fc4-e282df6b7ced" name="Default Changelist" comment="" />
+      <created>1617537409541</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617537409541</updated>
+      <workItem from="1617537411269" duration="7185000" />
+      <workItem from="1617615987980" duration="5369000" />
+      <workItem from="1617655664382" duration="779000" />
+      <workItem from="1617779180026" duration="1270000" />
+      <workItem from="1618477428709" duration="1155000" />
+      <workItem from="1618479908545" duration="11404000" />
+      <workItem from="1618515475476" duration="3910000" />
+      <workItem from="1618564356654" duration="11422000" />
+      <workItem from="1618679236947" duration="1358000" />
+      <workItem from="1618697592164" duration="4147000" />
+      <workItem from="1618743949333" duration="16715000" />
+      <workItem from="1618825440627" duration="11173000" />
+      <workItem from="1618850677683" duration="2140000" />
+      <workItem from="1618950690361" duration="2106000" />
+      <workItem from="1618986914950" duration="2279000" />
+      <workItem from="1619079593029" duration="6023000" />
+      <workItem from="1619198061635" duration="964000" />
+      <workItem from="1619271195737" duration="9368000" />
+      <workItem from="1619351158982" duration="4377000" />
+      <workItem from="1619446791325" duration="598000" />
+    </task>
+    <task id="LOCAL-00001" summary="AI is working&#10;&#10;needs GUI">
+      <created>1618745548878</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1618745548878</updated>
+    </task>
+    <task id="LOCAL-00002" summary="implemented a symmetry checking system, which checks for symmetric moves and disregards line computation. Can enhance performance at early stages of the game where potential moves can more easily create symmetric boards, and need further computing. But the algorithm itself is quite heavy, and perhaps useless in the end game. &#10;&#10;I need to either make the algorithm faster, or toggle it on and off at certain parts of the game where it becomes redundant.">
+      <created>1618830082506</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618830082506</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Custom list iteration addition">
+      <created>1619354112689</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1619354112689</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="AI is working&#10;&#10;needs GUI" />
+    <MESSAGE value="implemented a symmetry checking system, which checks for symmetric moves and disregards line computation. Can enhance performance at early stages of the game where potential moves can more easily create symmetric boards, and need further computing. But the algorithm itself is quite heavy, and perhaps useless in the end game. &#10;&#10;I need to either make the algorithm faster, or toggle it on and off at certain parts of the game where it becomes redundant." />
+    <MESSAGE value="Custom list iteration addition" />
+    <option name="LAST_COMMIT_MESSAGE" value="Custom list iteration addition" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="122" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Node" memberName="_children" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="root._children[7]._board.board" />
+        <watch expression="_moves" />
+        <watch expression="board.board" />
+        <watch expression="node._board.board[0][1]" />
+        <watch expression="node._Children.get(0)._Children.get(0)._board" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
