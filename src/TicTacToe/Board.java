@@ -1,11 +1,14 @@
+package TicTacToe;
+
+import DynamicMemory.List;
 import java.util.Arrays;
 
-public class Board{
-    Cell[][] board = new Cell[][]{
-            {Cell.BLANK, Cell.BLANK, Cell.BLANK},
-            {Cell.BLANK, Cell.BLANK, Cell.BLANK},
-            {Cell.BLANK, Cell.BLANK, Cell.BLANK}
-    };
+public class Board {
+    public Cell[][] board = new Cell[][]{
+        {Cell.BLANK, Cell.BLANK, Cell.BLANK},
+        {Cell.BLANK, Cell.BLANK, Cell.BLANK},
+        {Cell.BLANK, Cell.BLANK, Cell.BLANK}
+};
 
     public void Move(Move move){
         if(move != null) {
@@ -15,20 +18,6 @@ public class Board{
 
     public void clearMove(Move move){
         board[move.x][move.y] = Cell.BLANK;
-    }
-
-    public List<Move> findAvailableMoves(Cell c, Board target){
-        List<Move> moves = new List<>();
-
-        for(int i = 0 ; i < board.length ; i++ ){
-            for (int j = 0 ; j < board[i].length ; j++ ){
-                if(board[i][j] == Cell.BLANK){
-                    moves.add(new Move(i,j,c));
-                }
-            }
-        }
-
-        return AI_Optimized.checkForSymmetries(moves,target.board);
     }
 
     public Board.Result GetResult(){
@@ -165,18 +154,3 @@ public class Board{
 
 }
 
-class Move{
-    int x;
-    int y;
-    Board.Cell inp;
-
-    boolean hasSymmetries;
-    List<Move> symmetries;
-
-    Move(int x, int y, Board.Cell inp){
-        this.x = x;
-        this.y = y;
-        this.inp = inp;
-        symmetries = new List<>();
-    }
-}
