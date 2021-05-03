@@ -19,5 +19,5 @@ public interface Dimensions {
     int BottomPanel_Height = 100;
     /*======FRAME======*/
     int Frame_Width        = GameBoard_Width+LeftPanel_Width+RightPanel_Width+5+(3*Spacers);
-    int Frame_Height       = TopPanel_Height+BottomPanel_Height+GameBoard_Height+(6*Spacers);
+    int Frame_Height       = GameBoard_Height+(4*Spacers);
 }
