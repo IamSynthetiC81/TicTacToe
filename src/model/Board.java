@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Arrays;
 
 public class Board{
@@ -9,12 +11,12 @@ public class Board{
 
     public void Move(Move move){
         if(move != null) {
-            this.board[move.x][move.y] = move.inp;
+            this.board[move.getX()][move.getY()] = move.inp;
         }
     }
 
     public void clearMove(Move move){
-        board[move.x][move.y] = Cell.BLANK;
+        board[move.getX()][move.getY()] = Cell.BLANK;
     }
 
     public List<Move> findAvailableMoves(Cell c, Board target){
@@ -31,88 +33,88 @@ public class Board{
         return AI_Optimized.checkForSymmetries(moves,target.board);
     }
 
-    public Board.Result GetResult(){
-        if(board[0][0] != Board.Cell.BLANK) {
+    public Result GetResult(){
+        if(board[0][0] != Cell.BLANK) {
             if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
-                if (board[0][0] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[0][2] != Board.Cell.BLANK) {
+        if(board[0][2] != Cell.BLANK) {
             if (board[0][2] == board[1][1] && board[0][2] == board[2][0]) {
-                if (board[0][2] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][2] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[0][0] != Board.Cell.BLANK) {
+        if(board[0][0] != Cell.BLANK) {
             if (board[0][0] == board[0][1] && board[0][0] == board[0][2]) {
-                if (board[0][0] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[1][0] != Board.Cell.BLANK) {
+        if(board[1][0] != Cell.BLANK) {
             if (board[1][0] == board[1][1] && board[1][0] == board[1][2]) {
-                if (board[1][0] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[1][0] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[2][0] != Board.Cell.BLANK) {
+        if(board[2][0] != Cell.BLANK) {
             if (board[2][0] == board[2][1] && board[2][0] == board[2][2]) {
-                if (board[2][0] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[2][0] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
 
-        if(board[0][0] != Board.Cell.BLANK) {
+        if(board[0][0] != Cell.BLANK) {
             if (board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
-                if (board[0][0] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][0] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[0][1] != Board.Cell.BLANK) {
+        if(board[0][1] != Cell.BLANK) {
             if (board[0][1] == board[1][1] && board[0][1] == board[2][1]) {
-                if (board[0][1] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][1] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        if(board[0][2] != Board.Cell.BLANK) {
+        if(board[0][2] != Cell.BLANK) {
             if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) {
-                if (board[0][2] == Board.Cell.X) {
-                    return Board.Result.XWins;
+                if (board[0][2] == Cell.X) {
+                    return Result.XWins;
                 } else {
-                    return Board.Result.OWins;
+                    return Result.OWins;
                 }
             }
         }
-        for (Board.Cell[] cells : board) {
-            for (Board.Cell cell : cells) {
-                if (cell == Board.Cell.BLANK) {
-                    return Board.Result.Unknown;
+        for (Cell[] cells : board) {
+            for (Cell cell : cells) {
+                if (cell == Cell.BLANK) {
+                    return Result.Unknown;
                 }
             }
         }
-        return Board.Result.Tie;
+        return Result.Tie;
     }
 
     public enum Result{
@@ -162,10 +164,9 @@ public class Board{
             Arrays.fill(cells, Cell.BLANK);
         }
     }
-
 }
 
-class Move{
+/*class Move{
     int x;
     int y;
     Board.Cell inp;
@@ -173,10 +174,10 @@ class Move{
     boolean hasSymmetries;
     List<Move> symmetries;
 
-    Move(int x, int y, Board.Cell inp){
+    public Move(int x, int y, Board.Cell inp){
         this.x = x;
         this.y = y;
         this.inp = inp;
         symmetries = new List<>();
     }
-}
+}*/

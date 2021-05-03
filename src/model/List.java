@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -54,7 +56,7 @@ public class List<E> implements Iterable<E>{
         return (E) item;
     }
 
-    public void empty(){
+    public void empty() {
         elements = new Object[DEFAULT_CAPACITY];
         size = 0;
     }

@@ -1,6 +1,8 @@
+package model;
+
 import java.util.Random;
 
-public class AI_Optimized{
+public class AI_Optimized {
 
     public static Board.Cell human = Board.Cell.X;
     public static Board.Cell ai = Board.Cell.O;

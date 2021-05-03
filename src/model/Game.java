@@ -1,9 +1,19 @@
+package model;
+
 import java.util.Arrays;
 
 public class Game {
 
-    Board board = new Board();
+    private Board board = new Board();
     List<Move> GameMoves = new List<>();
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Board.Cell getBoardCell(int i, int j) {
+        return board.board[i][j];
+    }
 
     public void parseMove(Move move){
         GameMoves.add(move);
@@ -30,7 +40,7 @@ public class Game {
     public void undo(){
         if(GameMoves.size() > 0) {
             Move moveToUndo = GameMoves.get(GameMoves.size() - 1);
-            board.board[moveToUndo.x][moveToUndo.y] = Board.Cell.BLANK;
+            board.board[moveToUndo.getX()][moveToUndo.getY()] = Board.Cell.BLANK;
             GameMoves.remove(moveToUndo);
         }
     }
