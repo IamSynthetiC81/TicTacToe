@@ -2,22 +2,30 @@ package ΑΙ;
 
 import DynamicMemory.List;
 import TicTacToe.Board;
+import TicTacToe.BoardHandler;
 import TicTacToe.Move;
 
-public class SymmetriesHandler {
-    public static Board[] rotateBoard(Board target){
+public class SymmetriesHandler implements BoardHandler {
 
-        Board[] _buffer = new Board[3];
+    private static final int BOARD_SYMMETRIES = 5;
+
+    public Board[] rotateBoard(Board target){
+
+        Board[] _buffer = new Board[BOARD_SYMMETRIES];
 
         _buffer[0] = new Board();
-        _buffer[0].copyBoard(target);
-
         _buffer[1] = new Board();
-        _buffer[1].copyBoard(target);
-
         _buffer[2] = new Board();
-        _buffer[2].copyBoard(target);
+        _buffer[3] = new Board();
+        _buffer[4] = new Board();
 
+        copyBoardToBoard(target.board,_buffer[0].board);
+        copyBoardToBoard(target.board,_buffer[1].board);
+        copyBoardToBoard(target.board,_buffer[2].board);
+        copyBoardToBoard(target.board,_buffer[3].board);
+        copyBoardToBoard(target.board,_buffer[5].board);
+
+        /*================1 ROTATION================*/
         _buffer[0].board[0][0] = target.board[0][2];
         _buffer[0].board[0][1] = target.board[1][2];
         _buffer[0].board[0][2] = target.board[2][2];
@@ -29,7 +37,7 @@ public class SymmetriesHandler {
         _buffer[0].board[2][0] = target.board[0][0];
         _buffer[0].board[2][1] = target.board[1][0];
         _buffer[0].board[2][2] = target.board[2][0];
-
+        /*================2 ROTATIONS=t.board========*/
         _buffer[1].board[0][0] = target.board[2][2];
         _buffer[1].board[0][1] = target.board[2][1];
         _buffer[1].board[0][2] = target.board[2][0];
@@ -41,8 +49,7 @@ public class SymmetriesHandler {
         _buffer[1].board[2][0] = target.board[0][2];
         _buffer[1].board[2][1] = target.board[0][1];
         _buffer[1].board[2][2] = target.board[0][0];
-
-
+        /*================3 ROTATIONS=t.board========*/
         _buffer[2].board[0][0] = target.board[2][0];
         _buffer[2].board[0][1] = target.board[1][0];
         _buffer[2].board[0][2] = target.board[0][0];
@@ -54,18 +61,35 @@ public class SymmetriesHandler {
         _buffer[2].board[2][0] = target.board[2][2];
         _buffer[2].board[2][1] = target.board[1][2];
         _buffer[2].board[2][2] = target.board[0][2];
+        /*================FLIPPED HORIt.boardONTALLY================*/
+        _buffer[3].board[0][0] = target.board[2][0];
+        _buffer[3].board[0][1] = target.board[2][1];
+        _buffer[3].board[0][2] = target.board[2][2];
 
+        _buffer[3].board[2][0] = target.board[0][0];
+        _buffer[3].board[2][1] = target.board[0][1];
+        _buffer[3].board[2][2] = target.board[0][2];
+        /*================FLIPPED VERTt.boardCALLY===============*/
+        _buffer[4].board[0][0] = target.board[0][2];
+        _buffer[4].board[1][0] = target.board[1][2];
+        _buffer[4].board[2][0] = target.board[2][2];
+
+        _buffer[4].board[0][2] = target.board[0][0];
+        _buffer[4].board[1][2] = target.board[1][0];
+        _buffer[4].board[2][2] = target.board[2][0];
         return _buffer;
     }
 
-    public static List<Move> checkForSymmetries(List<Move> moves, Board.Cell[][] original){
+    public List<Move> checkForSymmetries(List<Move> moves, Board.Cell[][] original){
         List<Board> _boards = new List<>();
         List<Move> _movesToDelete = new List<>();
 
-        Board[] rotatedBoards = new Board[3];
+        Board[] rotatedBoards = new Board[BOARD_SYMMETRIES];
         rotatedBoards[0] = new Board();
         rotatedBoards[1] = new Board();
         rotatedBoards[2] = new Board();
+        rotatedBoards[3] = new Board();
+        rotatedBoards[4] = new Board();
 
         Board buffer;
         for(Move move : moves){
@@ -81,7 +105,7 @@ public class SymmetriesHandler {
 
             for(int i = 0 ; i < movesIndex ; i++ ) {
                 for (Board rotatedBoard : rotatedBoards) {
-                    if (rotatedBoard.sameBoard(_boards.get(i))) {
+                    if (sameBoard(rotatedBoard,_boards.get(i))) {
                         moves.get(movesIndex).symmetries.add(moves.get(i));
                         moves.get(movesIndex).hasSymmetries = true;
                         _movesToDelete.add(moves.get(i));

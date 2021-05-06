@@ -1,27 +1,37 @@
 package TicTacToe;
 
 import DynamicMemory.List;
-import ΑΙ.MiniMax;
-
+import ΑΙ.HALL;
+import java.time.LocalTime;
 import java.util.Arrays;
 
-public class Game {
+public class Game implements HALL {
     public Board board = new Board();
-    public List<Move> GameMoves = new List<>();
+    private List<Move> GameMoves = new List<>();
+    private LocalTime duration;
+    private Board.Result winner;
+
+    public GameRecord gameRecord;
+
+    Player playerX = new Player();
+    Player playerO = new Player();
+
+
 
     public void parseMove(Move move){
         GameMoves.add(move);
         Move AIMove;
         board.Move(move);
         if(board.GetResult() == Board.Result.Unknown) {
-            AIMove = MiniMax.getBestMove(board, Board.Cell.O);
+            AIMove = getMove(board, Board.Cell.O);
             GameMoves.add(AIMove);
             board.Move(AIMove);
         }
+
     }
 
     public Move giveHint(){
-        return MiniMax.getBestMove(board, Board.Cell.X);
+        return getMove(board, Board.Cell.X);
     }
 
     public void newGame(){
@@ -29,6 +39,7 @@ public class Game {
             Arrays.fill(board.board[i], Board.Cell.BLANK);
         }
         GameMoves.empty();
+        gameRecord = new GameRecord(playerX,playerO);
     }
 
     public void undo(){

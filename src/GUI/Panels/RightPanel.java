@@ -21,11 +21,10 @@ class RightPanel extends JPanel implements ActionListener, Dimensions, Panels, D
         this.setBorder(BorderFactory.createRaisedBevelBorder());
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        this.selectPlayerBtn = new JButton("Select Player");
-        //       this.selectPlayerBtn.setBounds(0, 0 , 80, 100);
-        this.selectPlayerBtn.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
-        this.selectPlayerBtn.setBackground(new Color(163, 163, 163));
-        this.selectPlayerBtn.setFocusable(false);
+        selectPlayerBtn = new JButton("Select Player");
+        selectPlayerBtn.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+        selectPlayerBtn.setBackground(new Color(163, 163, 163));
+        selectPlayerBtn.setFocusable(false);
         this.add(this.selectPlayerBtn);
 
 //        this.setPreferredSize(new Dimension(RightPanel_Width, RightPanel_Height));

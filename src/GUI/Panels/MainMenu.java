@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MainMenu extends JPanel implements ActionListener, DarkColourPallet, Dimensions, Panels {
     JButton NewGame = new JButton("NEW GAME");
     JButton NewPlayer = new JButton("ADD PLAYER");
-    JButton HallOfFame = new JButton("Scoreboard");
+    JButton HallOfFame = new JButton("HallOfFame");
     JButton Quit = new JButton("QUIT");
 
     MainMenu(){
@@ -44,8 +44,12 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == NewGame){
-
+        if(e.getSource() == HallOfFame){
+            mainPanel.MainPanelLayout.show(mainPanel,"HallOfFame");
+        }if(e.getSource() == NewGame){
+            game.newGame();
+            board.updateBoard();
+            mainPanel.MainPanelLayout.show(mainPanel,"Board");
         }
     }
 }

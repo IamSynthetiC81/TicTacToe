@@ -96,6 +96,8 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, Panel
                     winnerPanel.Label("TIE");
                 }
                 showWinnerPanel(true);
+                game.gameRecord.setResult(winner);
+                game.gameRecord.updatePlayers();
             } else {
                 showWinnerPanel(false);
             }
@@ -175,7 +177,6 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, Panel
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == replay) {
-                    mainPanel.MainPanelLayout.next(mainPanel);
                     game.newGame();
                     GameBoard.updateBoard();
                 } else if (e.getSource() == back) {

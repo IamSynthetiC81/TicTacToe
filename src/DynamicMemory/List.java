@@ -35,6 +35,22 @@ public class List<E> implements Iterable<E>{
         }
         elements[size++] = e;
     }
+
+    public void changeOrder(int i, int j){
+        if(i >= size || i < 0){
+            throw new IndexOutOfBoundsException("Index " + i + ", Size " + size);
+        }
+        else if(j >= size || j < 0){
+            throw new IndexOutOfBoundsException("Index " + j + ", Size " + size);
+        }
+
+        E tempElement = (E) elements[i];
+        elements[i] = elements[j];
+        elements[j] = tempElement;
+
+        return;
+    }
+
     @SuppressWarnings("unchecked")
     public E get(int i){
         if(i >= size || i < 0){
@@ -46,7 +62,7 @@ public class List<E> implements Iterable<E>{
     @SuppressWarnings("unchecked")
     public E remove(int i){
         if(i >= size || i < 0){
-            throw new IndexOutOfBoundsException("Index " + i + ", Size " + i);
+            throw new IndexOutOfBoundsException("Index " + i + ", Size " + size);
         }
         Object item = elements[i];
         int numElts = elements.length-(i+1);

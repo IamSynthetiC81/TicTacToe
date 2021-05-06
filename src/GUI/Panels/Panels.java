@@ -12,5 +12,7 @@ public interface Panels {
     RightPanel          settings        = new RightPanel();
     MainFrameSubPanel   board           = new MainFrameSubPanel();
     MainMenu            MainMenu        = new MainMenu();
+    HallOfFame HALL_OF_FAME = new HallOfFame();
     MainPanel           mainPanel       = new MainPanel();
+
 }

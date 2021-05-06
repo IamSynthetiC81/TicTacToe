@@ -13,7 +13,7 @@ public class MainPanel extends JLayeredPane implements Dimensions, Panels {
         this.setPreferredSize(new Dimension(GameBoard_Width, GameBoard_Height));
         this.add(board, "Board");
         this.add(MainMenu, "MainMenu");
-        MainPanelLayout.first(this);    //switch first to last to show main menu
-
+        this.add(HALL_OF_FAME,"HallOfFame");
+        MainPanelLayout.show(this,"MainMenu");
     }
 }

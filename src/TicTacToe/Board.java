@@ -3,7 +3,7 @@ package TicTacToe;
 import DynamicMemory.List;
 import java.util.Arrays;
 
-public class Board {
+public class Board implements BoardHandler{
     public Cell[][] board = new Cell[][]{
         {Cell.BLANK, Cell.BLANK, Cell.BLANK},
         {Cell.BLANK, Cell.BLANK, Cell.BLANK},
@@ -146,11 +146,13 @@ public class Board {
         }
         return true;
     }
+
     public void resetBoard() {
         for (Cell[] cells : board) {
             Arrays.fill(cells, Cell.BLANK);
         }
     }
 
-}
 
+
+}
