@@ -1,33 +1,35 @@
 package TicTacToe;
 
+import Players.Player;
+
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
 
 public class GameRecord {
+    private static final int PLAYER_COUNT = 2;
+
     private Player[] players;
     private Board.Result result;
     private double currentScoreX;
     private double currentScoreO;
-    private LocalDateTime currentDateTime;
-    private String currentDateTimeS;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private State state;
     private double opponentScore;
 
+    private static final LocalDateTime currentDateTime = LocalDateTime.now();;
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static final String currentDateTimeS = currentDateTime.format(dateTimeFormatter);
+
     public GameRecord(Player playerX, Player playerO) {
-        players = new Player[2];
+        players = new Player[PLAYER_COUNT];
 
         players[0] = playerX;
-        currentScoreX = playerX.score;
+        currentScoreX = playerX.getScore();
 
         players[1] = playerO;
-        currentScoreO = playerO.score;
+        currentScoreO = playerO.getScore();
 
         result = Board.Result.Unknown;
-
-        currentDateTime = LocalDateTime.now();
-        currentDateTimeS = currentDateTime.format(dateTimeFormatter);
 
         opponentScore = 0;
     }
@@ -69,8 +71,8 @@ public class GameRecord {
     }
 
     public void updatePlayers() {
-        GameRecord tempGameRecord1 = new GameRecord(this.players[0], this.players[1]);
-        GameRecord tempGameRecord2 = new GameRecord(this.players[0], this.players[1]);
+        GameRecord tempGameRecord1 = new GameRecord(players[0], players[1]);
+        GameRecord tempGameRecord2 = new GameRecord(players[0], players[1]);
 
         if(result == Board.Result.XWins){
             players[0].addWin();
@@ -141,12 +143,12 @@ public class GameRecord {
     private void copy(GameRecord gameRecordCopy) {
 //        this.players[0] = gameRecordCopy.getPlayer(0);
 //        this.players[1] = gameRecordCopy.getPlayer(1);
-        this.result = gameRecordCopy.getResult();
+        result = gameRecordCopy.getResult();
 //        this.currentScoreO = gameRecordCopy.getCurrentScoreO();
 //        this.currentScoreX = gameRecordCopy.getCurrentScoreX();
 //        this.currentDateTime = gameRecordCopy.getCurrentDateTime();
 //        this.currentDateTimeS = gameRecordCopy.getCurrentDateTimeS();
-        this.state = gameRecordCopy.getState();
+        state = gameRecordCopy.getState();
     }
 
     public enum State{

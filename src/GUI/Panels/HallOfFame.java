@@ -2,7 +2,6 @@ package GUI.Panels;
 
 import GUI.ColourPallets.DarkColourPallet;
 import GUI.Dimensions;
-import TicTacToe.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,7 +155,7 @@ public class HallOfFame extends JPanel implements ActionListener,Panels, DarkCol
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == Back){
-            mainPanel.MainPanelLayout.show(mainPanel,"MainMenu");
+            MAIN_PANEL.show(MAIN_PANEL,"MainMenu");
         }
     }
 }

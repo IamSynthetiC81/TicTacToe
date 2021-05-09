@@ -16,4 +16,16 @@ public class Move{
         this.inp = inp;
         symmetries = new List<>();
     }
+
+    public Move(int x, int y){
+        this.x = x;
+        this.y = y;
+        this.inp = Board.Cell.BLANK;
+        symmetries = new List<>();
+    }
+
+    public void setPlayer(Board.Cell player){
+        this.inp = player;
+    }
+
 }

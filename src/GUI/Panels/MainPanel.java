@@ -6,14 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel extends JLayeredPane implements Dimensions, Panels {
-    public CardLayout MainPanelLayout;
+    private static final CardLayout MainPanelLayout = new CardLayout();;
     MainPanel() {
-        MainPanelLayout = new CardLayout();
         this.setLayout(MainPanelLayout);
         this.setPreferredSize(new Dimension(GameBoard_Width, GameBoard_Height));
-        this.add(board, "Board");
-        this.add(MainMenu, "MainMenu");
+        this.add(BOARD, "Board");
+        this.add(MAIN_MENU, "MainMenu");
         this.add(HALL_OF_FAME,"HallOfFame");
         MainPanelLayout.show(this,"MainMenu");
+    }
+
+    public void show(Container parent,String name){
+        MainPanelLayout.show(parent,name);
     }
 }

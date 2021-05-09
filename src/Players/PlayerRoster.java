@@ -1,6 +1,9 @@
-package TicTacToe;
+package Players;
 
 import DynamicMemory.List;
+import Players.Player;
+
+import java.util.NoSuchElementException;
 
 public class PlayerRoster {
     List<Player> allPlayers;
@@ -9,10 +12,19 @@ public class PlayerRoster {
         allPlayers = new List<>();
     }
 
+    public Player findByName(String name){
+        for (Player player : allPlayers){
+            if(player.getName().equals(name)){
+                return player;
+            }
+        }
+        throw new NoSuchElementException("Player " +name+ " does not exist in database");
+    }
+
     public void addPlayer(Player player) {
         for(int i = 0; i < allPlayers.size(); i++)
             if(allPlayers.get(i).name.equals(player.name)){
-                System.out.println("This player is already inserted!");
+                System.out.println("Player "+player.getName()+" is already inserted!");
                 return;
             }
 
@@ -24,15 +36,19 @@ public class PlayerRoster {
 
         for(int i = 0; i < allPlayers.size() - 1; i++)
             for(int j = i + 1; j < allPlayers.size(); j++)
-                if(allPlayers.get(i).score < allPlayers.get(j).score)
+                if(allPlayers.get(i).getScore() < allPlayers.get(j).getScore())
                     allPlayers.changeOrder(i, j);
 
     }
 
-//   public void findPlayersName() {
-//      // for(int i = 0; i < allPlayers.size(); i++)
+    public String[] findPlayersName() {
+        String[] allNames = new String[allPlayers.size()];
 
-//   }
+        for(int i = 0; i < allPlayers.size(); i++)
+            allNames[i] = allPlayers.get(i).name;
+
+        return allNames;
+    }
 
     public Player findPlayer(String name) {
         for(int i = 0; i < allPlayers.size(); i++)
@@ -53,7 +69,7 @@ public class PlayerRoster {
 
         for(int i = 0; i < n; i++)
             if(allPlayers.get(i) != null)
-                System.out.println(i + ". " + allPlayers.get(i).name + " " + allPlayers.get(i).score + " " + allPlayers.get(i).gamesNum);
+                System.out.println(i + ". " + allPlayers.get(i).name + " " + allPlayers.get(i).getScore() + " " + allPlayers.get(i).getGamesNum());
 
     }
 }

@@ -1,12 +1,19 @@
 import GUI.Frame;
+import GUI.Panels.Panels;
+import Players.Player;
+import Players.Players;
 
-public class main {
-    public static void main(String[] args) {
+import javax.naming.InvalidNameException;
 
-        Frame frame = new Frame();
+public class main implements Players {
+    public static void main(String[] args) throws InvalidNameException {
+
+        playerRoster.addPlayer(MrBean);
+        playerRoster.addPlayer(HALL);
+
+
+        new Frame();
 
         System.out.println("Done");
-
-
     }
 }
