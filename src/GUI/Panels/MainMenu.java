@@ -60,19 +60,13 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
         if(e.getSource() == HallOfFame){
             MAIN_PANEL.show(MAIN_PANEL,"HallOfFame");
         }else if(e.getSource() == NewGame){
-            try {
-                BOARD.newGame(playerRoster.findByName(LEFT_PANEL.getCurPlayer()),playerRoster.findByName(RIGHT_PANEL.getCurPlayer()));
-                BOARD.nextTurn();
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
+
+            BOARD.newGame(playerRoster.findByName(LEFT_PANEL.getCurPlayer()),playerRoster.findByName(RIGHT_PANEL.getCurPlayer()));
+            BOARD.nextTurn();
+
             RIGHT_PANEL.updateStats();
             LEFT_PANEL.updateStats();
-            try {
-                BOARD.updateBoard();
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
+            BOARD.updateBoard();
             MAIN_PANEL.show(MAIN_PANEL,"Board");
         }else if(e.getSource() == NewPlayer){
             String name = JOptionPane.showInputDialog("Insert player's name: ");

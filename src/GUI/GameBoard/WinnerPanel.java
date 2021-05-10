@@ -9,15 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,GameBoard {
-    private final WinnerPanel.ButtonPanel buttonPanel = new WinnerPanel.ButtonPanel();
-    private final WinnerPanel.WinnerLabel winnerLabel = new WinnerPanel.WinnerLabel();
+    private final WinnerPanel.ButtonPanel buttonPanel = new ButtonPanel();
+    private final WinnerPanel.WinnerLabel winnerLabel = new WinnerLabel();
 
     WinnerPanel() {
         this.setBounds(0, 0, GameBoard_Width, GameBoard_Height);
         this.setBackground(TINT);
         this.setOpaque(true);
         this.setLayout(new BorderLayout(10, 10));
-        this.setVisible(false);
+//        this.setVisible(false);
+        this.setVisible(true);
 
         this.add(winnerLabel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.CENTER);
@@ -27,7 +28,7 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
         this.winnerLabel.setText(string);
     }
 
-    private class WinnerLabel extends JLabel {
+    private static class WinnerLabel extends JLabel {
         WinnerLabel() {
             this.setHorizontalAlignment(SwingConstants.CENTER);
             this.setVerticalAlignment(SwingConstants.CENTER);
@@ -38,7 +39,7 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
         }
     }
 
-    private class ButtonPanel extends JPanel implements ActionListener {
+    private static class ButtonPanel extends JPanel implements ActionListener {
         public JButton replay = new JButton("REPLAY");
         public JButton back = new JButton("BACK");
 
@@ -68,12 +69,10 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == replay) {
                 GameBoard.newGame(TicTacToeBoard.game.getPlayerX() , TicTacToeBoard.game.getPlayerO()  );
-                try {
-                    GameBoard.nextTurn();
-                    GameBoard.updateBoard();
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
+
+                GameBoard.nextTurn();
+                GameBoard.updateBoard();
+
             } else if (e.getSource() == back) {
                 MAIN_PANEL.show(MAIN_PANEL,"MainMenu");
             }

@@ -53,11 +53,11 @@ public class AI implements BoardHandler {
                     }
                 }
             }
-            if (bestMove != null && bestMove.hasSymmetries) {
-                Random random = new Random();
-                bestMove.symmetries.add(bestMove);
-                return bestMove.symmetries.get(random.nextInt(bestMove.symmetries.size()));
-            }
+//            if (bestMove != null && bestMove.hasSymmetries) {
+//                Random random = new Random();
+//                bestMove.symmetries.add(bestMove);
+//                return bestMove.symmetries.get(random.nextInt(bestMove.symmetries.size()));
+//            }
             return bestMove;
         }else{
             List<Move> AvailableMoves = board.findAvailableMoves(board,player);

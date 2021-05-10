@@ -13,9 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TicTacToeBoard extends JPanel implements ActionListener, DarkColourPallet, Dimensions, GameBoard {
-    private static final     JButton[]       buttons = new JButton[9];
-    public  static           Board.Result    winner = Board.Result.Unknown;
-    public  static           Game            game;
+    private  final     JButton[]       buttons = new JButton[9];
+    public             Board.Result    winner = Board.Result.Unknown;
+    public  static     Game            game;
 
     TicTacToeBoard() {
         /*=====================BOARD INITIALIZATION=====================*/
@@ -37,10 +37,6 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         game = new Game(playerX , playerO);
     }
 
-    private void Hint(Move hint) {
-        buttons[(hint.x * 3) + hint.y].setBackground(HINT);
-    }
-
     public void ButtonsSetEnabled(Boolean bool) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -49,7 +45,7 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         }
     }
 
-    public void nextTurn() throws InterruptedException {
+    public void nextTurn(){
         game.nextTurn();
     }
 
@@ -85,9 +81,15 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
             game.gameRecord.updatePlayers();
             RIGHT_PANEL.updateStats();
             LEFT_PANEL.updateStats();
-            showWinnerPanel(true);
-        } else {
-            showWinnerPanel(false);
+//            show("WinnerPanel");
+//            showWinnerPanel(true);
+            BOARD.show(winnerPanel);
+        }
+
+        else {
+//            show("GameBoard");
+//            showWinnerPanel(false);
+            BOARD.show(GameBoard);
         }
     }
 
