@@ -37,7 +37,7 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[0].board[2][0] = target.board[0][0];
         _buffer[0].board[2][1] = target.board[1][0];
         _buffer[0].board[2][2] = target.board[2][0];
-        /*================2 ROTATIONS=t.board========*/
+        /*================2 ROTATIONS========*/
         _buffer[1].board[0][0] = target.board[2][2];
         _buffer[1].board[0][1] = target.board[2][1];
         _buffer[1].board[0][2] = target.board[2][0];
@@ -49,7 +49,7 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[1].board[2][0] = target.board[0][2];
         _buffer[1].board[2][1] = target.board[0][1];
         _buffer[1].board[2][2] = target.board[0][0];
-        /*================3 ROTATIONS=t.board========*/
+        /*================3 ROTATIONS========*/
         _buffer[2].board[0][0] = target.board[2][0];
         _buffer[2].board[0][1] = target.board[1][0];
         _buffer[2].board[0][2] = target.board[0][0];
@@ -61,7 +61,7 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[2].board[2][0] = target.board[2][2];
         _buffer[2].board[2][1] = target.board[1][2];
         _buffer[2].board[2][2] = target.board[0][2];
-        /*================FLIPPED HORIt.boardONTALLY================*/
+        /*================FLIPPED HORIZONTALLY================*/
         _buffer[3].board[0][0] = target.board[2][0];
         _buffer[3].board[0][1] = target.board[2][1];
         _buffer[3].board[0][2] = target.board[2][2];
@@ -69,7 +69,7 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[3].board[2][0] = target.board[0][0];
         _buffer[3].board[2][1] = target.board[0][1];
         _buffer[3].board[2][2] = target.board[0][2];
-        /*================FLIPPED VERTt.boardCALLY===============*/
+        /*================FLIPPED VERTICALLY===============*/
         _buffer[4].board[0][0] = target.board[0][2];
         _buffer[4].board[1][0] = target.board[1][2];
         _buffer[4].board[2][0] = target.board[2][2];

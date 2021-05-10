@@ -13,8 +13,6 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
 
 
     public MainFrameSubPanel() {
-//        this.setBounds(0, 0, GameBoard_Width, GameBoard_Height);
-//        this.setSize(GameBoard_Width, GameBoard_Height);
         this.setPreferredSize(new Dimension(GameBoard_Width, GameBoard_Height));
 
 
@@ -26,9 +24,11 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
         if(panel == GameBoard) {
             this.setLayer(GameBoard, 1);
             this.setLayer(winnerPanel, 0);
+            winnerPanel.setVisible(false);
         }else{
             this.setLayer(GameBoard, 0);
             this.setLayer(winnerPanel, 1);
+            winnerPanel.setVisible(true);
         }
     }
 

@@ -58,7 +58,6 @@ public class Player{
     public void insertPlayersName(String name){
         if(name.strip().length() > 20){
             System.out.println("Invalid name");
-//            throw new InvalidNameException("Player name \"" +name+ "\" is too big\nPlease enter a valid name of " +MAX_CHAR_NUMBER+ " characters max");
         }else {
             this.name = name.strip();
         }
