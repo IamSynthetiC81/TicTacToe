@@ -71,7 +71,16 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
         }else if(e.getSource() == NewPlayer){
             String name = JOptionPane.showInputDialog("Insert player's name: ");
 
-            playerRoster.addPlayer(new Player(name));
+            if(name == null)
+                return;
+
+            else if(name.strip().length() > 20) {
+                JOptionPane.showMessageDialog(null, "Insert a valid name!", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            else
+                playerRoster.addPlayer(new Player(name));
         }
     }
 }

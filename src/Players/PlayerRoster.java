@@ -3,6 +3,7 @@ package Players;
 import DynamicMemory.List;
 import Players.Player;
 
+import javax.swing.*;
 import java.util.NoSuchElementException;
 
 public class PlayerRoster {
@@ -24,11 +25,16 @@ public class PlayerRoster {
     public void addPlayer(Player player) {
         for(int i = 0; i < allPlayers.size(); i++)
             if(allPlayers.get(i).name.equals(player.name)){
-                System.out.println("Player "+player.getName()+" is already inserted!");
+                JOptionPane.showMessageDialog(null, "Player "+player.getName()+" is already inserted!", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+        if(player.name == "") {
+            JOptionPane.showMessageDialog(null, "Insert a valid name!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        allPlayers.add(player);
+        else
+            allPlayers.add(player);
     }
 
     public void sortPlayers() {

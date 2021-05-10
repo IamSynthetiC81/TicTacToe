@@ -120,17 +120,12 @@ public class Player{
             }
         }
         else{
-            for(int k = 1; k < bestGames.length; k++) {
-                if (!betterGame(game, bestGames[k])) {
-                    for(int z = 0 ; z < k - 1  ; z++){
-                        bestGames[z] = bestGames[z+1];
+            for(int k = 0; k < bestGames.length; k++) {
+                if (betterGame(game, bestGames[k])) {
+                    for(int z = bestGames.length - 1 ; z > k  ; z--){
+                        bestGames[z] = bestGames[z-1];
                     }
-                    bestGames[k-1] = game;
-
-//                for (int z = k ; z > 0; z--) {
-//                    bestGames[z] = bestGames[z - 1];
-//                }
-
+                    bestGames[k] = game;
 
                     break;
                 }
