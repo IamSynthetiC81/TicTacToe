@@ -53,14 +53,12 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
             replay.setBackground(BUTTON);
             replay.addActionListener(this);
             replay.setFocusable(false);
-            replay.addActionListener(this);
 
             back.setBounds(350, 250, 200, 100);
             back.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 20));
             back.setBackground(BUTTON);
             back.addActionListener(this);
             back.setFocusable(false);
-            back.addActionListener(this);
 
             this.add(back);
             this.add(replay);
@@ -69,14 +67,13 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == replay) {
+                GameBoard.newGame(TicTacToeBoard.game.getPlayerX() , TicTacToeBoard.game.getPlayerO()  );
                 try {
-                    GameBoard.newGame(TicTacToeBoard.game.getPlayerX() , TicTacToeBoard.game.getPlayerO()  );
                     GameBoard.nextTurn();
                     GameBoard.updateBoard();
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-                GameBoard.updateBoard();
             } else if (e.getSource() == back) {
                 MAIN_PANEL.show(MAIN_PANEL,"MainMenu");
             }

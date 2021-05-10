@@ -1,6 +1,8 @@
 package TicTacToe;
 
 import DynamicMemory.List;
+import ΑΙ.SymmetriesHandler;
+
 import java.util.Arrays;
 
 public class Board implements BoardHandler{
@@ -151,6 +153,20 @@ public class Board implements BoardHandler{
         for (Cell[] cells : board) {
             Arrays.fill(cells, Cell.BLANK);
         }
+    }
+
+    public List<Move> findAvailableMoves(Board board , Board.Cell player){
+        List<Move> moves = new List<>();
+        for(int i = 0 ; i < board.board.length ; i++ ){
+            for(int j = 0 ; j < board.board[i].length ; j++ ){
+                if(board.board[i][j] == Board.Cell.BLANK){
+                    moves.add(new Move(i,j,player));
+                }
+            }
+        }
+
+        SymmetriesHandler.checkForSymmetries(moves,board.board);
+        return moves;
     }
 
 

@@ -33,7 +33,7 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         }
     }
 
-    public void newGame(Player playerX, Player playerO) throws InterruptedException {
+    public void newGame(Player playerX, Player playerO) {
         game = new Game(playerX , playerO);
     }
 
@@ -53,7 +53,7 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         game.nextTurn();
     }
 
-    public void updateBoard() {
+    public void updateBoard()   {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (game.board.board[i][j] == Board.Cell.O) {
@@ -95,13 +95,8 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < buttons.length; i++) {
             if (e.getSource() == buttons[i]) {
-                try {
-                    game.parseMove(new Move(i / 3, i % 3));
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
+                game.parseMove(new Move(i / 3, i % 3));
                 updateBoard();
-                return;
             }
         }
     }

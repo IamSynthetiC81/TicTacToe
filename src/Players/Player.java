@@ -5,8 +5,8 @@ import TicTacToe.GameRecord;
 import TicTacToe.Move;
 import ΑΙ.AI;
 
-import javax.naming.InvalidNameException;
-import java.util.InvalidPropertiesFormatException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Player{
     private static final int MAX_CHAR_NUMBER = 20;

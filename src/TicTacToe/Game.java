@@ -46,13 +46,11 @@ public class Game implements Panels {
                 Move AIMove = players[0].getMove(board, Board.Cell.X);
                 GameMoves.add(AIMove);
                 board.Move(AIMove);
-                BOARD.updateBoard();
                 nextTurn();
             }else if (!XTurn && !getPlayerO().isHuman) {
-                Move AIMove = players[0].getMove(board, Board.Cell.O);
+                Move AIMove = players[1].getMove(board, Board.Cell.O);
                 GameMoves.add(AIMove);
                 board.Move(AIMove);
-                BOARD.updateBoard();
                 nextTurn();
             }
         }
@@ -66,7 +64,7 @@ public class Game implements Panels {
         return players[1];
     }
 
-    public void parseMove(Move move) throws InterruptedException {
+    public void parseMove(Move move){
         if(XTurn){
             move.setPlayer(Board.Cell.X);
         }else{
@@ -74,9 +72,7 @@ public class Game implements Panels {
         }
         GameMoves.add(move);
         board.Move(move);
-        if(board.GetResult() == Board.Result.Unknown) {
-            nextTurn();
-        }
+        nextTurn();
     }
 
     public void undo(){

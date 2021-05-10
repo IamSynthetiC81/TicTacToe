@@ -36,7 +36,7 @@ public class AI implements BoardHandler {
             } else {
                 bestScore = 100;
             }
-            List<Move> moves = findAvailableMoves(board, player);
+            List<Move> moves = board.findAvailableMoves(board, player);
             for (Move move : moves) {
                 board.Move(move);
                 int score = minimax(board, 9, player == minim, -100, 100);
@@ -60,7 +60,7 @@ public class AI implements BoardHandler {
             }
             return bestMove;
         }else{
-            List<Move> AvailableMoves = findAvailableMoves(board,player);
+            List<Move> AvailableMoves = board.findAvailableMoves(board,player);
             return AvailableMoves.get(random.nextInt(AvailableMoves.size()));
         }
     }
@@ -69,18 +69,15 @@ public class AI implements BoardHandler {
         Board.Result winner = board.GetResult();
         if (winner != Board.Result.Unknown || depth == 0) {
             if((winner == Board.Result.OWins && maxim == Board.Cell.O) || (winner == Board.Result.XWins && maxim == Board.Cell.X)){
-                return depth+1;
+                return (depth+1);
             }else if ((winner == Board.Result.OWins && maxim == Board.Cell.X) || (winner == Board.Result.XWins && maxim == Board.Cell.O)) {
                 return -(depth + 1);
-//            }else if (winner == Board.Result.Tie){
-//                return 0;
-//            }
             }else{
                 return 0;
             }
         }
 
-        List<Move> moves = findAvailableMoves(board,maxPlayer ? minim : maxim);
+        List<Move> moves = board.findAvailableMoves(board,maxPlayer ? minim : maxim);
 
         int bestScore;
         if(maxPlayer) {

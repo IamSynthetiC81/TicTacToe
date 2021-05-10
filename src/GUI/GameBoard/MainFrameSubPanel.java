@@ -17,7 +17,7 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
         this.add(winnerPanel, 0);
     }
 
-    public void newGame( Player playerX , Player playerO) throws InterruptedException {
+    public void newGame( Player playerX , Player playerO) {
         GameBoard.newGame(playerX,playerO);
     }
 
@@ -25,7 +25,7 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
         winnerPanel.setVisible(bool);
     }
 
-    public void updateBoard() {
+    public void updateBoard() throws InterruptedException {
         GameBoard.updateBoard();
     }
 
