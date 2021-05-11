@@ -13,17 +13,16 @@ public class Statistics extends JPanel implements Panels, Dimensions, DarkColour
     private static final int PanelHeight = 520;
     private static final int SymbolDimensions = PanelWidth-20;
     private static final int StatPanelWidth = PanelWidth-20;
-    private static final int StatPanelHeight = PanelHeight-SymbolDimensions-80;
+    private static final int StatPanelHeight = PanelHeight-SymbolDimensions;
 
     private final Symbol         symbol  = new Symbol();
-    private final PlayerStats    playerStat = new PlayerStats();;
+    private final PlayerStats    playerStat = new PlayerStats();
     private       Player         player;
 
     Statistics(String Symbol){
         this.setSize(PanelWidth,PanelHeight);
         this.setBackground(FRAME);
         this.setLayout(null);
-        this.setBorder(BorderFactory.createRaisedBevelBorder());
 
         symbol.setText(Symbol);
         symbol.setSize(SymbolDimensions,SymbolDimensions);
@@ -43,7 +42,7 @@ public class Statistics extends JPanel implements Panels, Dimensions, DarkColour
         playerStat.updateStats();
     }
 
-    private class Symbol extends JLabel {
+    private static class Symbol extends JLabel {
         Symbol(){
             this.setBorder(BorderFactory.createRaisedBevelBorder());
             this.setForeground(Color.WHITE);
@@ -65,13 +64,20 @@ public class Statistics extends JPanel implements Panels, Dimensions, DarkColour
             this.setBorder(BorderFactory.createRaisedBevelBorder());
             this.setBackground(FRAME);
             this.setFont(new Font("TimesRoman", Font.BOLD, 13));
-            this.setLayout(null);
+            this.setLayout(new FlowLayout(FlowLayout.CENTER,5,5));
 
             TotalGames.setBounds(10, 10, TotalGames.dimensions.width, TotalGames.dimensions.height);
             WON.setBounds(10, TotalGames.getY() + TotalGames.dimensions.height + 10, TotalGames.dimensions.width, TotalGames.dimensions.height);
             LOST.setBounds(10, WON.getY() + TotalGames.dimensions.height + 10, TotalGames.dimensions.width, TotalGames.dimensions.height);
             TOTAL_SCORE.setBounds(10, LOST.getY() + TotalGames.dimensions.height + 10, TotalGames.dimensions.width, TotalGames.dimensions.height);
             RECENT_SCORE.setBounds(10, TOTAL_SCORE.getY() + TotalGames.dimensions.height + 10, TotalGames.dimensions.width, TotalGames.dimensions.height);
+
+            TotalGames.setPreferredSize(new Dimension(StatPanelWidth-20,25));
+            WON.setPreferredSize(new Dimension(StatPanelWidth-20,25));
+            LOST.setPreferredSize(new Dimension(StatPanelWidth-20,25));
+            TOTAL_SCORE.setPreferredSize(new Dimension(StatPanelWidth-20,25));
+            RECENT_SCORE.setPreferredSize(new Dimension(StatPanelWidth-20,25));
+
 
             TotalGames.setVisible(true);
             WON.setVisible(true);

@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class SidePanel extends JPanel implements ActionListener, Dimensions, Panels, DarkColourPallet, Players {
     private final JButton selectPlayerBtn;
-    public Statistics Stats;
+    private Statistics Stats;
     private String curPlayer;
     private boolean ready;
 
@@ -34,6 +34,10 @@ public class SidePanel extends JPanel implements ActionListener, Dimensions, Pan
 
         this.add(selectPlayerBtn);
         this.add(Stats);
+    }
+
+    public void enableButton(boolean bool){
+        selectPlayerBtn.setEnabled(bool);
     }
 
     public void updateStats() {
@@ -58,16 +62,14 @@ public class SidePanel extends JPanel implements ActionListener, Dimensions, Pan
             "Default"
         );
 
-        if(this.curPlayer == null)
-            return;
+        if(this.curPlayer == null) {
+            ready = false;
 
-        else {
-            ready = this.curPlayer != null;
-
-            MAIN_MENU.setNewGameEnabled(RIGHT_PANEL.isReady() && LEFT_PANEL.isReady() && !RIGHT_PANEL.curPlayer.equals(LEFT_PANEL.getCurPlayer()));
-
+        }else {
+            ready = true;
             Stats.addPlayer(playerRoster.findByName(curPlayer));
         }
+        MAIN_MENU.setNewGameEnabled(RIGHT_PANEL.isReady() && LEFT_PANEL.isReady() && !RIGHT_PANEL.curPlayer.equals(LEFT_PANEL.getCurPlayer()) );
     }
 
     @Override
