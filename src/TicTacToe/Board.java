@@ -165,9 +165,10 @@ public class Board implements BoardHandler{
             }
         }
 
-//        SymmetriesHandler.checkForSymmetries(moves,board.board);
+        SymmetriesHandler.checkForSymmetries(moves,board.board);
         return moves;
     }
+
 
 
 
