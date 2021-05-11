@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public interface DataHandler {
-
     default void ImportPlayerStatisticsData() throws FileNotFoundException {
         try {
             FileInputStream fileIn = new FileInputStream("/tmp/PlayerStatistics.ser");
