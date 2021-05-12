@@ -28,16 +28,9 @@ public class Game implements Panels {
         players[1] = player2 ;
 
         gameRecord = new GameRecord(player1,player2);
-
-        System.out.println("NAME: "+player1.getName());
-        System.out.println("GAMES NUM: "+player1.getGamesNum());
-        System.out.println("Score: "+player1.getScore());
-
-        System.out.println("NAME: "+player2.getName());
-        System.out.println("GAMES NUM: "+player2.getGamesNum());
-        System.out.println("Score: "+player2.getScore());
-
     }
+
+
 
     public void nextTurn(){
         XTurn = !XTurn;

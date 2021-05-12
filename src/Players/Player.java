@@ -5,9 +5,6 @@ import TicTacToe.GameRecord;
 import TicTacToe.Move;
 import ΑΙ.AI;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Player{
     private static final int MAX_CHAR_NUMBER = 20;
     private static final int RECENT_GAMES_LENGTH = 5;
@@ -20,9 +17,11 @@ public class Player{
     private int lossesNum;
     private int tiesNum;
     private double score;
+    private double recentScore;
 
     public boolean isHuman = true;
     public PlayerAI AI = null;
+
 
     private GameRecord[] recentGames;
     private GameRecord[] bestGames;
@@ -67,10 +66,31 @@ public class Player{
         score = 50 * ((double)(2 * winsNum + tiesNum) / gamesNum);
     }
 
+    public void recentScoreCalculator(GameRecord[] recentGames) {
+        int recentWinsNum = 0;
+        int recentTiesNum = 0;
+        for(GameRecord game : recentGames){
+            if(game != null) {
+                if (game.getState() == GameRecord.State.Win) {
+                    recentWinsNum++;
+                } else if (game.getState() == GameRecord.State.Tie) {
+                    recentTiesNum++;
+                }
+            }
+        }
+
+        recentScore = 50 * ((double)(2 * recentWinsNum + recentTiesNum) / (gamesNum > 5 ? 5 : gamesNum));
+    }
+
+    public double getRecentScore(){
+        return recentScore;
+    }
+
     public void insertRecentGame(GameRecord game) {
         for(int i = 0; i < recentGames.length; i++){
             if(recentGames[i] == null){
                 recentGames[i] = game;
+                recentScoreCalculator(recentGames);
                 return;
             }
         }
@@ -79,6 +99,7 @@ public class Player{
             recentGames[i] = recentGames[i + 1];
         }
         recentGames[4] = game;
+        recentScoreCalculator(recentGames);
 
     }
 

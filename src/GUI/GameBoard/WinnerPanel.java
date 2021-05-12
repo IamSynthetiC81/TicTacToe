@@ -75,6 +75,8 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
 
             } else if (e.getSource() == back) {
                 MAIN_PANEL.show(MAIN_PANEL,"MainMenu");
+                LEFT_PANEL.enableButton(true);
+                RIGHT_PANEL.enableButton(true);
             }
         }
 

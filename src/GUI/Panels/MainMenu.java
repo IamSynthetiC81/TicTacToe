@@ -58,6 +58,7 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == HallOfFame){
+            HALL_OF_FAME.update();
             MAIN_PANEL.show(MAIN_PANEL,"HallOfFame");
         }else if(e.getSource() == NewGame){
 
@@ -65,7 +66,9 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
             BOARD.nextTurn();
 
             RIGHT_PANEL.updateStats();
+            RIGHT_PANEL.enableButton(false);
             LEFT_PANEL.updateStats();
+            LEFT_PANEL.enableButton(false);
             BOARD.updateBoard();
             MAIN_PANEL.show(MAIN_PANEL,"Board");
         }else if(e.getSource() == NewPlayer){

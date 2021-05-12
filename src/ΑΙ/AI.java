@@ -8,8 +8,6 @@ import TicTacToe.Move;
 import java.util.Random;
 
 public class AI implements BoardHandler,SymmetriesHandler {
-    private Board.Cell maxim;
-    private Board.Cell minim;
     private boolean isHALL = false;
     Random random = new Random();
 
@@ -31,13 +29,9 @@ public class AI implements BoardHandler,SymmetriesHandler {
                 ai = player;
                 opponent = Board.Cell.X;
             }
-            Move bestMove = null;
+            List<Move> bestMove = new List<>();
             int bestScore;
-            if (player == ai) {
-                bestScore = -100;
-            } else {
-                bestScore = 100;
-            }
+            bestScore = -100;
             List<Move> moves = board.findAvailableMoves(board, player);
             for (Move move : moves) {
                 board.Move(move);
@@ -46,21 +40,32 @@ public class AI implements BoardHandler,SymmetriesHandler {
                 if (player == ai) {
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMove = move;
+                        bestMove.empty();
+                        bestMove.add(move,0);
                     }
                 } else {
                     if (score < bestScore) {
                         bestScore = score;
-                        bestMove = move;
+                        bestMove.empty();
+                        bestMove.add(move,0);
+                    }
+                    if (score == bestScore){
+                        bestMove.add(move);
                     }
                 }
             }
-            if (bestMove != null && bestMove.hasSymmetries) {
-                Random random = new Random();
-                bestMove.symmetries.add(bestMove);
-                return bestMove.symmetries.get(random.nextInt(bestMove.symmetries.size()));
+            if(bestMove.size() > 1){
+                Move move = bestMove.get(random.nextInt(bestMove.size()));
+                if(move.hasSymmetries){
+                    move.symmetries.add(move);
+                    return move.symmetries.get(random.nextInt(move.symmetries.size()));
+                }
+            }else if (bestMove.get(0).hasSymmetries) {
+
+                bestMove.get(0).symmetries.add(bestMove.get(0));
+                return bestMove.get(0).symmetries.get(random.nextInt(bestMove.get(0).symmetries.size()));
             }
-            return bestMove;
+            return bestMove.get(0);
         }else{
             List<Move> AvailableMoves = board.findAvailableMoves(board,player);
             Move AIMove =  AvailableMoves.get(random.nextInt(AvailableMoves.size()));
@@ -76,13 +81,6 @@ public class AI implements BoardHandler,SymmetriesHandler {
     public static int minimax (Board board, int depth, boolean maxPlayer, int alpha, int beta) {
         Board.Result winner = board.GetResult();
         if (winner != Board.Result.Unknown || depth == 0) {
-//            if(winner == Board.Result.OWins){
-//                return depth+1;
-//            }else if (winner == Board.Result.XWins){
-//                return -(depth+1);
-//            }else if (winner == Board.Result.Tie){
-//                return 0;
-//            }
             if ((winner == Board.Result.OWins && ai == Board.Cell.O) || (winner == Board.Result.XWins && ai == Board.Cell.X)) {
                 return (depth + 1);
             } else if ((winner == Board.Result.OWins && ai == Board.Cell.X) || (winner == Board.Result.XWins && ai == Board.Cell.O)) {
@@ -122,135 +120,6 @@ public class AI implements BoardHandler,SymmetriesHandler {
         }
         return bestScore;
     }
-
-//    public Move getMove(Board board, Board.Cell player) {
-//        if (isHALL) {
-//            maxim = player;
-//            if (player == Board.Cell.O) {
-//                minim = Board.Cell.X;
-//            } else {
-//                minim = Board.Cell.O;
-//            }
-//
-//            Move bestMove = null;
-//            int bestScore;
-//            bestScore = -100;
-//            List<Move> moves = board.findAvailableMoves(board, player);
-//            List<Integer> scores = new List<Integer>();
-//
-//            for (Move move : moves) {
-//                board.Move(move);
-////                int score = minimax(board, 9, false, -100, 100);
-//
-//                int score = minimax(board, 9, false);
-//                scores.add(score);
-//                board.clearMove(move);
-//                if (player == maxim) {
-//                    if (score > bestScore) {
-//                        bestScore = score;
-//                        bestMove = move;
-//                    }
-//                } else {
-//                    if (score < bestScore) {
-//                        bestScore = score;
-//                        bestMove = move;
-//                        System.out.println("asdjuasdsd");
-//                    }
-//                }
-//            }
-////            if (bestMove != null && bestMove.hasSymmetries) {
-////                Random random = new Random();
-////                bestMove.symmetries.add(bestMove);
-////                return bestMove.symmetries.get(random.nextInt(bestMove.symmetries.size()));
-////            }
-//            return bestMove;
-//        }else{
-//            List<Move> AvailableMoves = board.findAvailableMoves(board,player);
-//            return AvailableMoves.get(random.nextInt(AvailableMoves.size()));
-//        }
-//    }
-//
-//    private int minimax(Board board, int depth, boolean maxPlayer) {
-//        Board.Result winner = board.GetResult();
-//        if (winner != Board.Result.Unknown || depth == 0) {
-//            if((winner == Board.Result.OWins && maxim == Board.Cell.O) || (winner == Board.Result.XWins && maxim == Board.Cell.X)){
-//                return (depth+1);
-//            }else if ((winner == Board.Result.OWins && maxim == Board.Cell.X) || (winner == Board.Result.XWins && maxim == Board.Cell.O)) {
-//                return -(depth + 1);
-//            }else if(winner == Board.Result.Tie){
-//                return 0;
-//            }
-//        }
-//
-//
-//        List<Move> moves = board.findAvailableMoves(board,maxPlayer ? minim : maxim);
-//        List<Integer> scores = new List<Integer>();
-//        int bestScore;
-//        if(maxPlayer) {
-//            bestScore = -100;
-//            for (Move move : moves) {
-//                board.Move(move);
-//                int currentScore = minimax(board,depth - 1, false);
-//                scores.add(currentScore);
-//                board.clearMove(move);
-//                bestScore = Math.max(bestScore, currentScore);
-//
-//            }
-//        }else{
-//            bestScore = +100;
-//            for (Move move : moves) {
-//                board.Move(move);
-//                int currentScore = minimax(board,depth - 1, true);
-//                scores.add(currentScore);
-//                board.clearMove(move);
-//                bestScore = Math.min(bestScore, currentScore);
-//            }
-//        }
-//        return bestScore;
-//    }
-
-//    private int minimaxAlphaBeta(Board board, int depth, boolean maxPlayer, int alpha, int beta) {
-//        Board.Result winner = board.GetResult();
-//        if (winner != Board.Result.Unknown || depth == 0) {
-//            if((winner == Board.Result.OWins && maxim == Board.Cell.O) || (winner == Board.Result.XWins && maxim == Board.Cell.X)){
-//                return (depth+1);
-//            }else if ((winner == Board.Result.OWins && maxim == Board.Cell.X) || (winner == Board.Result.XWins && maxim == Board.Cell.O)) {
-//                return -(depth + 1);
-//            }else{
-//                return 0;
-//            }
-//        }
-//
-//        List<Move> moves = board.findAvailableMoves(board,maxPlayer ? minim : maxim);
-//
-//        int bestScore;
-//        if(maxPlayer) {
-//            bestScore = -100;
-//            for (Move move : moves) {
-//                board.Move(move);
-//                int currentScore = minimax(board,depth - 1, false, alpha, beta);
-//                board.clearMove(move);
-//                bestScore = Math.max(bestScore, currentScore);
-//                alpha = Math.max(alpha, currentScore);
-//                if (beta <= alpha) {
-//                    break;
-//                }
-//            }
-//        }else{
-//            bestScore = +100;
-//            for (Move move : moves) {
-//                board.Move(move);
-//                int currentScore = minimax(board,depth - 1, true, alpha, beta);
-//                board.clearMove(move);
-//                bestScore = Math.min(bestScore, currentScore);
-//                beta = Math.min(currentScore, beta);
-//                if (beta <= alpha) {
-//                    break;
-//                }
-//            }
-//        }
-//        return bestScore;
-//    }
 
     public enum Algorithm{
         HALL,

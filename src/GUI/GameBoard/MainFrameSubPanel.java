@@ -25,14 +25,10 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
             this.setLayer(GameBoard, 1);
             this.setLayer(winnerPanel, 0);
             winnerPanel.setVisible(false);
-            LEFT_PANEL.enableButton(false);
-            RIGHT_PANEL.enableButton(false);
         }else{
             this.setLayer(GameBoard, 0);
             this.setLayer(winnerPanel, 1);
             winnerPanel.setVisible(true);
-            LEFT_PANEL.enableButton(true);
-            RIGHT_PANEL.enableButton(true);
         }
     }
 

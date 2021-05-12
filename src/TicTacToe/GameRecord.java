@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class GameRecord {
     private static final int PLAYER_COUNT = 2;
 
-    private Player[] players;
+    private final Player[] players;
     private Board.Result result;
     private double currentScoreX;
     private double currentScoreO;
@@ -129,16 +129,16 @@ public class GameRecord {
         }
     }
 
-/*    private void copy(GameRecord gameRecordCopy) {
-        this.players[0] = gameRecordCopy.players[0];
-        this.players[1] = gameRecordCopy.players[1];
-        this.result = gameRecordCopy.result;
-        this.currentScoreO = gameRecordCopy.currentScoreO;
-        this.currentScoreX = gameRecordCopy.currentScoreX;
-        this.currentDateTime = gameRecordCopy.currentDateTime;
-        this.currentDateTimeS = gameRecordCopy.currentDateTimeS;
-        this.state = gameRecordCopy.state;
-    }*/
+    public boolean betterGame(GameRecord game2) {
+        if(this.getState().ordinal() > game2.getState().ordinal()) {
+            return true;
+        }else if(this.getState().ordinal() == game2.getState().ordinal()) {
+            return this.getOpponentScore() > game2.getOpponentScore();
+        }else if(this.getState().ordinal() == game2.getState().ordinal() && this.getOpponentScore() == game2.getOpponentScore()) {
+            return this.getCurrentDateTime().isAfter(game2.getCurrentDateTime());
+        }
+        return false;
+    }
 
     private void copy(GameRecord gameRecordCopy) {
 //        this.players[0] = gameRecordCopy.getPlayer(0);

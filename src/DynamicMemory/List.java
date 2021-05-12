@@ -36,6 +36,16 @@ public class List<E> implements Iterable<E>{
         elements[size++] = e;
     }
 
+    public void add(E e, int i){
+        if(i == size){
+            ensureCapacity();
+            size++;
+        }else if(i > elements.length){
+            throw new IndexOutOfBoundsException(i + "is out of bounds");
+        }
+        elements[i] = e;
+    }
+
     public void changeOrder(int i, int j){
         if(i >= size || i < 0){
             throw new IndexOutOfBoundsException("Index " + i + ", Size " + size);

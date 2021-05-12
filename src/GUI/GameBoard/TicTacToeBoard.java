@@ -81,14 +81,10 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
             game.gameRecord.updatePlayers();
             RIGHT_PANEL.updateStats();
             LEFT_PANEL.updateStats();
-//            show("WinnerPanel");
-//            showWinnerPanel(true);
             BOARD.show(winnerPanel);
         }
 
         else {
-//            show("GameBoard");
-//            showWinnerPanel(false);
             BOARD.show(GameBoard);
         }
     }

@@ -65,17 +65,26 @@ public class PlayerRoster {
         return null;
     }
 
-    public void findHallOfFame(int n) {
+    public List<Player> getPlayers(){
+        return allPlayers;
+    }
 
-        if(n >= allPlayers.size() || n < 0){
+    public List<Player> findHallOfFame(int n) {
+
+        if(/*n >= allPlayers.size() || */n < 0){
             throw new IndexOutOfBoundsException("Index " + n + ", Size " + n);
         }
 
         sortPlayers();
 
-        for(int i = 0; i < n; i++)
-            if(allPlayers.get(i) != null)
-                System.out.println(i + ". " + allPlayers.get(i).name + " " + allPlayers.get(i).getScore() + " " + allPlayers.get(i).getGamesNum());
+        List<Player> HallOfFame = new List<Player>();
+
+        for(int i = 0; i < (n > allPlayers.size() ? allPlayers.size() : n); i++) {
+            if (allPlayers.get(i) != null) {
+                HallOfFame.add(allPlayers.get(i));
+            }
+        }
+        return HallOfFame;
 
     }
 }
