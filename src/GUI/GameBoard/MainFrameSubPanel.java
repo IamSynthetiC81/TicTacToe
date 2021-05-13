@@ -43,4 +43,8 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
     public void nextTurn(){
         GameBoard.nextTurn();
     }
+
+    public void ButtonsSetEnabled(boolean bool) {
+        GameBoard.ButtonsSetEnabled(bool);
+    }
 }

@@ -17,6 +17,8 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
     public             Board.Result    winner = Board.Result.Unknown;
     public  static     Game            game;
 
+    boolean[][] buffer = new boolean[3][3];
+
     TicTacToeBoard() {
         /*=====================BOARD INITIALIZATION=====================*/
         this.setBackground(FRAME_BACKGROUND);
@@ -37,12 +39,41 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         game = new Game(playerX , playerO);
     }
 
-    public void ButtonsSetEnabled(Boolean bool) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                buttons[(i * 3) + j].setEnabled(bool);
+    public void ButtonsSetEnabled(boolean bool) {
+        if(!bool) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    buttons[(i * 3) + j].setEnabled(false);
+                }
+            }
+        }else{
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++){
+                   if(game.board.board[i][j] == Board.Cell.BLANK){
+                        buttons[(i * 3) + j].setEnabled(true);
+                   }
+                }
             }
         }
+    }
+
+    public void protectButtons(Boolean bool){
+
+        if(!bool){
+            for(int i = 0 ; i < 3 ; i ++){
+                for(int j = 0 ; j < 3 ; j++ ){
+                    buffer[i][j] = buttons[(i*3) +j].isEnabled();
+                    buttons[(i*3) +j].setEnabled(false);
+                }
+            }
+        }else{
+            for(int i = 0 ; i < 3 ; i ++){
+                for(int j = 0 ; j < 3 ; j++ ){
+                    buttons[(i*3) +j].setEnabled(buffer[i][j]);
+                }
+            }
+        }
+
     }
 
     public void nextTurn(){
@@ -55,15 +86,12 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
                 if (game.board.board[i][j] == Board.Cell.O) {
                     buttons[(i * 3) + j].setText("O");
                     buttons[(i * 3) + j].setBackground(FRAME_OBJECT_DISABLED);
-                    buttons[(i * 3) + j].setEnabled(false);
                 } else if (game.board.board[i][j] == Board.Cell.X) {
                     buttons[(i * 3) + j].setText("X");
                     buttons[(i * 3) + j].setBackground(FRAME_OBJECT_DISABLED);
-                    buttons[(i * 3) + j].setEnabled(false);
                 } else {
                     buttons[(i * 3) + j].setText(" ");
                     buttons[(i * 3) + j].setBackground(FRAME_OBJECT_ENABLED);
-                    buttons[(i * 3) + j].setEnabled(true);
                 }
             }
         }
@@ -83,7 +111,6 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
             LEFT_PANEL.updateStats();
             BOARD.show(winnerPanel);
         }
-
         else {
             BOARD.show(GameBoard);
         }
@@ -93,8 +120,9 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < buttons.length; i++) {
             if (e.getSource() == buttons[i]) {
+                ButtonsSetEnabled(false);
                 game.parseMove(new Move(i / 3, i % 3));
-                updateBoard();
+//                updateBoard();
             }
         }
     }

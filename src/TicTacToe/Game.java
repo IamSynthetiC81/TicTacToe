@@ -5,14 +5,16 @@ import GUI.Panels.Panels;
 import Players.Player;
 
 
-import java.time.LocalTime;
+import javax.swing.*;
+
 
 public class Game implements Panels {
-    private final static long DELAY = 50;
+    private final static int DELAY = 1000;
     private final Player[] players = new Player[2];
 
     public Board board = new Board();
     public GameRecord gameRecord;
+    Timer timer;
 
     private final List<Move> GameMoves = new List<>();
 
@@ -25,21 +27,36 @@ public class Game implements Panels {
         gameRecord = new GameRecord(player1,player2);
     }
 
+    private Timer setTimer(int player, Board.Cell symbol){
+        timer = new Timer(DELAY, (event)->{
+            Move AIMove = players[player].getMove(board, symbol);
+            GameMoves.add(AIMove);
+            board.Move(AIMove);
+            BOARD.ButtonsSetEnabled(true);
+            nextTurn();
+        });
+        timer.setRepeats(false);
+        return timer;
+    }
+
     public void nextTurn(){
         XTurn = !XTurn;
+
         if(board.GetResult() == Board.Result.Unknown) {
             if (XTurn && !getPlayerX().isHuman) {
-                Move AIMove = players[0].getMove(board, Board.Cell.X);
-                GameMoves.add(AIMove);
-                board.Move(AIMove);
-                nextTurn();
+                BOARD.ButtonsSetEnabled(false);
+                timer = setTimer(0, Board.Cell.X);
+                timer.restart();
+
             }else if (!XTurn && !getPlayerO().isHuman) {
-                Move AIMove = players[1].getMove(board, Board.Cell.O);
-                GameMoves.add(AIMove);
-                board.Move(AIMove);
-                nextTurn();
+                BOARD.ButtonsSetEnabled(false);
+                timer = setTimer(1, Board.Cell.O);
+                timer.restart();
+            }else{
+                BOARD.ButtonsSetEnabled(true);
             }
         }
+        BOARD.updateBoard();
     }
 
     public Player getPlayerX(){
