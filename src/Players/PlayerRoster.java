@@ -4,6 +4,7 @@ import DynamicMemory.List;
 import Players.Player;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.NoSuchElementException;
 
 public class PlayerRoster {
@@ -67,6 +68,52 @@ public class PlayerRoster {
 
     public List<Player> getPlayers(){
         return allPlayers;
+    }
+
+    public void storePlayers() {
+        ObjectOutputStream os = null;
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream("tuctactoe.ser");
+            os = new ObjectOutputStream(fos);
+
+            for(Player player : allPlayers){
+                os.writeObject(player);
+            }
+            System.out.println("All players stored successfully.");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {os.close(); fos.close();} catch (Exception e){
+            }
+        }
+    }
+
+    public void loadPlayers() {
+        ObjectInputStream is = null;
+        FileInputStream fis = null;
+        try{
+            fis = new FileInputStream("tuctactoe.ser");
+            is = new ObjectInputStream(fis);
+
+            while(fis.available() > 0) {
+                Player player = (Player) is.readObject();
+                this.allPlayers.add(player);
+            }
+
+            System.out.println(allPlayers.size() + " players loaded successfully.");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found!");
+        } finally {
+            try{is.close(); fis.close();} catch (Exception e) {
+            }
+        }
     }
 
     public List<Player> findHallOfFame(int n) {

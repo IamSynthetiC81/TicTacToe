@@ -1,25 +1,20 @@
 package TicTacToe;
 
 import DynamicMemory.List;
-import GUI.GameBoard.GameBoard;
-import GUI.GameBoard.TicTacToeBoard;
 import GUI.Panels.Panels;
 import Players.Player;
-import Players.Players;
-import ΑΙ.AI;
+
 
 import java.time.LocalTime;
 
 public class Game implements Panels {
-    private final static long millis = 50;
+    private final static long DELAY = 50;
     private final Player[] players = new Player[2];
 
     public Board board = new Board();
     public GameRecord gameRecord;
 
     private final List<Move> GameMoves = new List<>();
-    private LocalTime duration;
-    private Board.Result winner;
 
     private boolean XTurn = false;
 
@@ -29,8 +24,6 @@ public class Game implements Panels {
 
         gameRecord = new GameRecord(player1,player2);
     }
-
-
 
     public void nextTurn(){
         XTurn = !XTurn;

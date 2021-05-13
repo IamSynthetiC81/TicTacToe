@@ -2,13 +2,14 @@ package GUI;
 
 import GUI.ColourPallets.DarkColourPallet;
 import GUI.Panels.Panels;
+import Players.Players;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 import java.awt.*;
 
-public class Frame extends JFrame implements Panels,Dimensions, DarkColourPallet {
+public class Frame extends JFrame implements Panels,Dimensions, DarkColourPallet, Players {
     public Frame() {
         this.setPreferredSize(new Dimension(Frame_Width,Frame_Height));
         this.setSize(Frame_Width,Frame_Height); //sets the x-dimension and y-dimension
@@ -29,10 +30,17 @@ public class Frame extends JFrame implements Panels,Dimensions, DarkColourPallet
 
     private static class AppListener extends WindowAdapter {
         @Override
+        public void windowOpened(WindowEvent e) {
+            playerRoster.loadPlayers();
+        }
+
+        @Override
         public void windowClosing(WindowEvent evt){
+            playerRoster.storePlayers();
             System.out.println("bye bye");
             System.exit(0);
         }
+
     }
 }
 

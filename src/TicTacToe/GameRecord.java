@@ -2,11 +2,12 @@ package TicTacToe;
 
 import Players.Player;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
 
-public class GameRecord {
+public class GameRecord implements Serializable {
     private static final int PLAYER_COUNT = 2;
 
     private final Player[] players;
