@@ -69,7 +69,7 @@ public class SidePanel extends JPanel implements ActionListener, Dimensions, Pan
             ready = true;
             Stats.addPlayer(playerRoster.findByName(curPlayer));
         }
-        MAIN_MENU.setNewGameEnabled(RIGHT_PANEL.isReady() && LEFT_PANEL.isReady() && !RIGHT_PANEL.curPlayer.equals(LEFT_PANEL.getCurPlayer()) );
+        MAIN_MENU.NewGameButtonSetEnabled(RIGHT_PANEL.isReady() && LEFT_PANEL.isReady() && !RIGHT_PANEL.curPlayer.equals(LEFT_PANEL.getCurPlayer()) );
     }
 
     @Override

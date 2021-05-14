@@ -32,6 +32,8 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
         this.add(scoreboard);
 
         Back.setBounds(20, GameBoard_Height - 60, 200, 50);
+        Back.setFocusable(false);
+        Back.setBackground(BUTTON);
         Back.addActionListener(this);
 
 
@@ -42,13 +44,14 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
     }
 
     private static class Scoreboard extends JPanel implements Players {
-        private static final int SPACER = 10;
+        private static final int SPACER = 5;
         private static final int ROW_HEIGHT = 40;
         private static final int ROW_WIDTH = GameBoard_Width - 60;
         private static final int SCOREBOARD_HEIGHT = ((ROW_HEIGHT + SPACER) * 10) + 10;
         private static final int SCOREBOARD_WIDTH = GameBoard_Width - 40;
 
         List<Player> records;
+        Row   Header        = new Row(true);
         Row[] Rows          = new Row[NUMBER_OF_PLAYERS];
 
         Scoreboard() {
@@ -57,14 +60,14 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
             this.setBorder(BorderFactory.createRaisedBevelBorder());
             this.setBackground(FRAME);
             this.setLayout(null);
-
+            this.add(Header);
 
 
             for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
                 Rows[i] = new Row();
 
                 if (i == 0) {
-                    Rows[i].setBounds(10, 10, ROW_WIDTH, ROW_HEIGHT);
+                    Rows[i].setBounds(10, Header.getY()+ROW_HEIGHT+SPACER, ROW_WIDTH, ROW_HEIGHT);
                 } else {
                     Rows[i].setBounds(10, Rows[i - 1].getY() + ROW_HEIGHT + SPACER, ROW_WIDTH, ROW_HEIGHT);
                 }
@@ -72,7 +75,6 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
 
                 this.add(Rows[i]);
             }
-            System.out.println("ready");
         }
 
         private static class Row extends JPanel {
@@ -87,6 +89,43 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
                 this.setLayout(new BorderLayout(Spacers, 0));
                 this.setSize(SCOREBOARD_WIDTH - 100, ROW_HEIGHT);
                 this.setBackground(FRAME);
+            }
+
+            Row(boolean header) {
+                this.setLayout(new BorderLayout(Spacers, 0));
+                this.setSize(SCOREBOARD_WIDTH - 100, ROW_HEIGHT);
+                this.setBackground(FRAME);
+
+                this.setBounds(10, 10, ROW_WIDTH, ROW_HEIGHT);
+
+                Player.setText("NAME");
+                Score.setText("SCORE");
+                GamesPlayed.setText("GAMES PLAYED");
+
+                Player.setPreferredSize(new Dimension(COL_WIDTH, ROW_HEIGHT));
+                Player.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+                Player.setForeground(Color.WHITE);
+
+                Score.setPreferredSize(new Dimension(COL_WIDTH, ROW_HEIGHT));
+                Score.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+                Score.setForeground(Color.WHITE);
+
+                GamesPlayed.setPreferredSize(new Dimension(COL_WIDTH, ROW_HEIGHT));
+                GamesPlayed.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+                GamesPlayed.setForeground(Color.WHITE);
+
+                Player.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+                Score.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+                GamesPlayed.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 13));
+
+                Player.setHorizontalAlignment(SwingConstants.CENTER);
+                Score.setHorizontalAlignment(SwingConstants.CENTER);
+                GamesPlayed.setHorizontalAlignment(SwingConstants.CENTER);
+
+                this.add(Player, BorderLayout.WEST);
+                this.add(Score, BorderLayout.CENTER);
+                this.add(GamesPlayed, BorderLayout.EAST);
+
             }
 
             public void update(Player player){

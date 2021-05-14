@@ -19,7 +19,7 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
 
     MainMenu(){
         this.setBounds(0,0,GameBoard_Width,GameBoard_Height);
-        this.setBackground(FRAME_OBJECT_ENABLED);
+        this.setBackground(FRAME);
         this.setLayout(new GroupLayout(this));
         this.add(NewGame);
         this.add(NewPlayer);
@@ -33,23 +33,36 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
         NewGame.setFocusable(false);
         NewGame.setEnabled(false);
         NewGame.setBounds((GameBoard_Width-NewGame.getWidth())/2,20,200,100);
+        NewGame.setBackground(FRAME_OBJECT_DISABLED);
 
         NewPlayer.setSize(200,100);
         NewPlayer.addActionListener(this);
         NewPlayer.setFocusable(false);
         NewPlayer.setBounds((GameBoard_Width-NewPlayer.getWidth())/2,NewGame.getY()+150,200,100);
+        NewPlayer.setBackground(BUTTON);
 
         HallOfFame.setSize(200,100);
         HallOfFame.addActionListener(this);
         HallOfFame.setFocusable(false);
         HallOfFame.setBounds((GameBoard_Width-HallOfFame.getWidth())/2,NewPlayer.getY()+150,200,100);
+        HallOfFame.setBackground(BUTTON);
 
         Quit.setSize(200,100);
         Quit.addActionListener(this);
         Quit.setFocusable(false);
         Quit.setBounds((GameBoard_Width-HallOfFame.getWidth())/2,HallOfFame.getY()+150,200,100);
+        Quit.setBackground(BUTTON);
     }
 
+    public void NewGameButtonSetEnabled(boolean bool){
+        if(bool){
+            NewGame.setEnabled(true);
+            NewGame.setBackground(BUTTON);
+        }else{
+            NewGame.setEnabled(false);
+            NewGame.setBackground(FRAME_OBJECT_DISABLED);
+        }
+    }
 
     public void setNewGameEnabled(boolean ready) {
         this.NewGame.setEnabled(ready);
