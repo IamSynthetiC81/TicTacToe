@@ -60,6 +60,15 @@ public class List<E> implements Iterable<E>{
 
     }
 
+    public int getIndex(E e){
+        for(int i = 0 ; i < elements.length ; i++){
+            if(e == elements[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @SuppressWarnings("unchecked")
     public E get(int i){
         if(i >= size || i < 0){

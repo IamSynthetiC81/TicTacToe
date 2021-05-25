@@ -118,11 +118,15 @@ public class PlayerRoster implements Players{
                 MrBean_Present = true;
             }
         }
-//        if(!HALL_Present){
-//            this.addPlayer(HALL);
-//        }if(!MrBean_Present){
-//            addPlayer(MrBean);
-//        }
+        if(!HALL_Present){
+            try {
+                this.addPlayer(HALL);
+            }catch (Exception ignore){}
+        }if(!MrBean_Present){
+            try{
+                addPlayer(MrBean);
+            }catch (Exception ignore){}
+        }
     }
 
     public List<Player> findHallOfFame(int n) {

@@ -5,7 +5,7 @@ import Players.Player;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 
 public class GameRecord implements Serializable {
     private static final int PLAYER_COUNT = 2;
@@ -18,8 +18,8 @@ public class GameRecord implements Serializable {
     private double opponentScore;
 
     private LocalDateTime currentDateTime = LocalDateTime.now();;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private String currentDateTimeS = currentDateTime.format(dateTimeFormatter);
+//    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+//    private String currentDateTimeS = currentDateTime.format(dateTimeFormatter);
 
     public GameRecord(Player playerX, Player playerO) {
         players = new Player[PLAYER_COUNT];
@@ -39,9 +39,9 @@ public class GameRecord implements Serializable {
         return players[i];
     }
 
-    public String getCurrentDateTimeS() {
-        return currentDateTimeS;
-    }
+//    public String getCurrentDateTimeS() {
+//        return currentDateTimeS;
+//    }
 
     public double getOpponentScore() {
         return opponentScore;

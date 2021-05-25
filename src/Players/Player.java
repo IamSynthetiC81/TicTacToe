@@ -252,14 +252,16 @@ public class Player implements Serializable {
                 int bestScore;
                 bestScore = -100;
                 List<Move> moves = board.findAvailableMoves(board, player);
-
-//                addNodes(MAX_TREE_DEPTH, moves.size());
-//                addSymmetricTrimmedBranches(MAX_TREE_DEPTH,MAX_TREE_DEPTH - moves.size()-1);
+                List<Integer> scorePerMove = new List<>();
+                addNodes(MAX_TREE_DEPTH, moves.size());
+                addSymmetricTrimmedBranches(MAX_TREE_DEPTH,MAX_TREE_DEPTH - moves.size()-1);
 
                 for (Move move : moves) {
                     board.move(move);
                     int score = minimax(board, MAX_TREE_DEPTH - 1, player == opponent, -100, 100);
                     board.clearMove(move);
+                    scorePerMove.add(score,moves.getIndex(move));
+
                     if (player == ai) {
                         if (score > bestScore) {
                             bestScore = score;
@@ -279,13 +281,15 @@ public class Player implements Serializable {
                     }
                 }
 
-                printStats();
+//                printStats();
 
                 if (bestMove.size() > 1) {
                     Move move = bestMove.get(random.nextInt(bestMove.size()));
                     if (move.hasSymmetries) {
                         move.symmetries.add(move);
                         return move.symmetries.get(random.nextInt(move.symmetries.size()));
+                    }else{
+                        return move;
                     }
                 } else if (bestMove.get(0).hasSymmetries) {
                     bestMove.get(0).symmetries.add(bestMove.get(0));
@@ -306,23 +310,23 @@ public class Player implements Serializable {
 
         public int minimax(Board board, int depth, boolean maxPlayer, int alpha, int beta) {
             Board.Result winner = board.GetResult();
-            if (winner != Board.Result.Unknown || depth == 0) {
+            if (winner != Board.Result.Unknown) {
                 if ((winner == Board.Result.OWins && ai == Board.Cell.O) || (winner == Board.Result.XWins && ai == Board.Cell.X)) {
-//                    addNodes(depth-1,1);
+                    addNodes(depth,1);
                     return (depth + 1);
                 } else if ((winner == Board.Result.OWins && ai == Board.Cell.X) || (winner == Board.Result.XWins && ai == Board.Cell.O)) {
-//                    addNodes(depth-1,1);
+                    addNodes(depth,1);
                     return -(depth + 1);
                 } else if (winner == Board.Result.Tie){
-//                    addNodes(depth -1,1);
+                    addNodes(depth ,1);
                     return 0;
                 }
             }
 
             List<Move> moves = board.findAvailableMoves(board, maxPlayer ? ai : opponent);
 
-//            addNodes(depth, moves.size());
-//            addSymmetricTrimmedBranches(depth,depth - moves.size()-1);
+            addNodes(depth, moves.size());
+            addSymmetricTrimmedBranches(depth,depth - moves.size() - 1);
 
             int bestScore;
             if (maxPlayer) {
@@ -334,7 +338,7 @@ public class Player implements Serializable {
                     bestScore = Math.max(bestScore, currentScore);
                     alpha = Math.max(alpha, currentScore);
                     if (beta <= alpha) {
-//                        addTrimmedNodes(depth);
+                        addTrimmedNodes(depth);
                         break;
                     }
                 }
@@ -347,10 +351,13 @@ public class Player implements Serializable {
                     bestScore = Math.min(bestScore, currentScore);
                     beta = Math.min(currentScore, beta);
                     if (beta <= alpha) {
-//                        addTrimmedNodes(depth);
+                        addTrimmedNodes(depth);
                         break;
                     }
                 }
+            }
+            if(depth == 9){
+                System.out.println(bestScore);
             }
             return bestScore;
         }

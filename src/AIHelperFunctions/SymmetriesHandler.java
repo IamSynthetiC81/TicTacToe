@@ -7,7 +7,7 @@ import TicTacToe.Move;
 
 public interface SymmetriesHandler extends BoardHandler{
 
-    int BOARD_SYMMETRIES = 5;
+    int BOARD_SYMMETRIES = 3;
 
     static Board[] rotateBoard(Board target){
 
@@ -16,14 +16,14 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[0] = new Board();
         _buffer[1] = new Board();
         _buffer[2] = new Board();
-        _buffer[3] = new Board();
-        _buffer[4] = new Board();
+//        _buffer[3] = new Board();
+//        _buffer[4] = new Board();
 
-        BoardHandler.copyBoardToBoard(target.board,_buffer[0].board);
-        BoardHandler.copyBoardToBoard(target.board,_buffer[1].board);
-        BoardHandler.copyBoardToBoard(target.board,_buffer[2].board);
-        BoardHandler.copyBoardToBoard(target.board,_buffer[3].board);
-        BoardHandler.copyBoardToBoard(target.board,_buffer[4].board);
+//        BoardHandler.copyBoardToBoard(target.board,_buffer[0].board);
+//        BoardHandler.copyBoardToBoard(target.board,_buffer[1].board);
+//        BoardHandler.copyBoardToBoard(target.board,_buffer[2].board);
+//        BoardHandler.copyBoardToBoard(target.board,_buffer[3].board);
+//        BoardHandler.copyBoardToBoard(target.board,_buffer[4].board);
 
         /*================1 ROTATION================*/
         _buffer[0].board[0][0] = target.board[0][2];
@@ -61,22 +61,30 @@ public interface SymmetriesHandler extends BoardHandler{
         _buffer[2].board[2][0] = target.board[2][2];
         _buffer[2].board[2][1] = target.board[1][2];
         _buffer[2].board[2][2] = target.board[0][2];
-        /*================FLIPPED HORIZONTALLY================*/
-        _buffer[3].board[0][0] = target.board[2][0];
-        _buffer[3].board[0][1] = target.board[2][1];
-        _buffer[3].board[0][2] = target.board[2][2];
-
-        _buffer[3].board[2][0] = target.board[0][0];
-        _buffer[3].board[2][1] = target.board[0][1];
-        _buffer[3].board[2][2] = target.board[0][2];
-        /*================FLIPPED VERTICALLY===============*/
-        _buffer[4].board[0][0] = target.board[0][2];
-        _buffer[4].board[1][0] = target.board[1][2];
-        _buffer[4].board[2][0] = target.board[2][2];
-
-        _buffer[4].board[0][2] = target.board[0][0];
-        _buffer[4].board[1][2] = target.board[1][0];
-        _buffer[4].board[2][2] = target.board[2][0];
+//        /*================FLIPPED HORIZONTALLY================*/
+//        _buffer[3].board[0][0] = target.board[2][0];
+//        _buffer[3].board[0][1] = target.board[2][1];
+//        _buffer[3].board[0][2] = target.board[2][2];
+//
+//        _buffer[3].board[2][0] = target.board[0][0];
+//        _buffer[3].board[2][1] = target.board[0][1];
+//        _buffer[3].board[2][2] = target.board[0][2];
+//
+//        _buffer[3].board[1][0] = target.board[1][0];
+//        _buffer[3].board[1][1] = target.board[1][1];
+//        _buffer[3].board[1][2] = target.board[1][2];
+//        /*================FLIPPED VERTICALLY===============*/
+//        _buffer[4].board[0][0] = target.board[0][2];
+//        _buffer[4].board[1][0] = target.board[1][2];
+//        _buffer[4].board[2][0] = target.board[2][2];
+//
+//        _buffer[4].board[0][2] = target.board[0][0];
+//        _buffer[4].board[1][2] = target.board[1][0];
+//        _buffer[4].board[2][2] = target.board[2][0];
+//
+//        _buffer[4].board[0][1] = target.board[0][1];
+//        _buffer[4].board[1][1] = target.board[1][1];
+//        _buffer[4].board[2][1] = target.board[2][1];
         return _buffer;
     }
 
@@ -84,12 +92,7 @@ public interface SymmetriesHandler extends BoardHandler{
         List<Board> _boards = new List<>();
         List<Move> _movesToDelete = new List<>();
 
-        Board[] rotatedBoards = new Board[BOARD_SYMMETRIES];
-        rotatedBoards[0] = new Board();
-        rotatedBoards[1] = new Board();
-        rotatedBoards[2] = new Board();
-        rotatedBoards[3] = new Board();
-        rotatedBoards[4] = new Board();
+        Board[] rotatedBoards;
 
         Board buffer;
         for(Move move : moves){

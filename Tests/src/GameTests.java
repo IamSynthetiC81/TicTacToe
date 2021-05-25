@@ -16,9 +16,6 @@ class GameTests {
 	Player player1;
 	Player player2;
 	Player player3;
-	Player player4;
-	boolean XTurn = false;
-
 
 	@BeforeEach
 	void setUp() {
