@@ -1,13 +1,12 @@
 package Players;
 
 import DynamicMemory.List;
-import Players.Player;
 
 import javax.swing.*;
 import java.io.*;
 import java.util.NoSuchElementException;
 
-public class PlayerRoster {
+public class PlayerRoster implements Players{
     List<Player> allPlayers;
 
     public PlayerRoster() {
@@ -25,11 +24,11 @@ public class PlayerRoster {
 
     public void addPlayer(Player player) {
         for(int i = 0; i < allPlayers.size(); i++)
-            if(allPlayers.get(i).name.equals(player.name)){
+            if(allPlayers.get(i).getName().equals(player.getName())){
                 JOptionPane.showMessageDialog(null, "Player "+player.getName()+" is already inserted!", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-        if(player.name == "") {
+        if(player.getName() == "") {
             JOptionPane.showMessageDialog(null, "Insert a valid name!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -52,14 +51,14 @@ public class PlayerRoster {
         String[] allNames = new String[allPlayers.size()];
 
         for(int i = 0; i < allPlayers.size(); i++)
-            allNames[i] = allPlayers.get(i).name;
+            allNames[i] = allPlayers.get(i).getName();
 
         return allNames;
     }
 
     public Player findPlayer(String name) {
         for(int i = 0; i < allPlayers.size(); i++)
-            if(allPlayers.get(i).name.equals(name))
+            if(allPlayers.get(i).getName().equals(name))
                 return allPlayers.get(i);
 
         System.out.println("No player found with this name.");
@@ -113,6 +112,23 @@ public class PlayerRoster {
         } finally {
             try{is.close(); fis.close();} catch (Exception e) {
             }
+        }
+
+
+        boolean HALL_Present = false;
+        boolean MrBean_Present = false;
+        for(Player player : allPlayers){
+            if(player.getName().equals(HALL.getName())){
+                HALL_Present = true;
+            }
+            if(player.getName().equals(MrBean.getName())){
+                MrBean_Present = true;
+            }
+        }
+        if(!HALL_Present){
+            this.addPlayer(HALL);
+        }if(!MrBean_Present){
+            addPlayer(MrBean);
         }
     }
 

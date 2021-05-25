@@ -1,8 +1,5 @@
 package TicTacToe;
 
-import DynamicMemory.List;
-import ΑΙ.SymmetriesHandler;
-
 import java.util.Arrays;
 
 public interface BoardHandler {

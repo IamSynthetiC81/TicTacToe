@@ -1,21 +1,21 @@
 package Players;
 
+import AIHelperFunctions.AIStatistics;
+import AIHelperFunctions.SymmetriesHandler;
 import DynamicMemory.List;
 import TicTacToe.Board;
 import TicTacToe.BoardHandler;
 import TicTacToe.GameRecord;
 import TicTacToe.Move;
-import ΑΙ.SymmetriesHandler;
 
 import java.io.Serializable;
 import java.util.Random;
 
 public class Player implements Serializable {
-    private static final int MAX_CHAR_NUMBER = 20;
     private static final int RECENT_GAMES_LENGTH = 5;
     private static final int BEST_GAMES_LENGTH = 5;
 
-    String name;
+    private String name;
     private int gamesNum;
     private int winsNum;
     private int lossesNum;
@@ -25,7 +25,6 @@ public class Player implements Serializable {
 
     public boolean isHuman = true;
     public AI AI = null;
-
 
     private GameRecord[] recentGames;
     private GameRecord[] bestGames;
@@ -43,7 +42,7 @@ public class Player implements Serializable {
 
     }
 
-    public Player(String name, Algorithm ai){
+    public Player(String name, Algorithm ai) {
         insertPlayersName(name);
 
         gamesNum =0;
@@ -58,12 +57,9 @@ public class Player implements Serializable {
         AI = new AI(ai);
     }
 
-    public void insertPlayersName(String name){
-        if(name.strip().length() > 20){
-            System.out.println("Invalid name");
-        }else {
+    public void insertPlayersName(String name)  {
+
             this.name = name.strip();
-        }
     }
 
     public void scoreCalculator() {
@@ -103,8 +99,8 @@ public class Player implements Serializable {
             recentGames[i] = recentGames[i + 1];
         }
         recentGames[4] = game;
-        recentScoreCalculator(recentGames);
 
+        recentScoreCalculator(recentGames);
     }
 
     public boolean betterGame(GameRecord betterGame, GameRecord worseGame) {
@@ -204,11 +200,15 @@ public class Player implements Serializable {
         scoreCalculator();
     }
 
+    public int getTiesNum(){
+        return tiesNum;
+    }
+
     public Move getMove(Board board, Board.Cell player){
         return AI.getMove(board,player);
     }
 
-    public static class AI implements BoardHandler, SymmetriesHandler, Serializable{
+    public static class AI implements BoardHandler, SymmetriesHandler, Serializable, AIStatistics {
         private boolean isHALL = false;
         Random random = new Random();
 
@@ -216,6 +216,8 @@ public class Player implements Serializable {
         public Board.Cell ai = Board.Cell.O;
 
         public AI(Algorithm ai) {
+            resetStats();
+
             if (ai == Algorithm.HALL) {
                 isHALL = true;
             }
@@ -234,27 +236,35 @@ public class Player implements Serializable {
                 int bestScore;
                 bestScore = -100;
                 List<Move> moves = board.findAvailableMoves(board, player);
+
+//                addNodes(MAX_TREE_DEPTH, moves.size());
+//                addSymmetricTrimmedBranches(MAX_TREE_DEPTH,MAX_TREE_DEPTH - moves.size()-1);
+
                 for (Move move : moves) {
-                    board.Move(move);
-                    int score = minimax(board, 9, player == opponent, -100, 100);
+                    board.move(move);
+                    int score = minimax(board, MAX_TREE_DEPTH - 1, player == opponent, -100, 100);
                     board.clearMove(move);
                     if (player == ai) {
                         if (score > bestScore) {
                             bestScore = score;
                             bestMove.empty();
                             bestMove.add(move, 0);
+                        }else if(score == bestScore){
+                            bestMove.add(move);
                         }
                     } else {
                         if (score < bestScore) {
                             bestScore = score;
                             bestMove.empty();
                             bestMove.add(move, 0);
-                        }
-                        if (score == bestScore) {
+                        }else if (score == bestScore) {
                             bestMove.add(move);
                         }
                     }
                 }
+
+                printStats();
+
                 if (bestMove.size() > 1) {
                     Move move = bestMove.get(random.nextInt(bestMove.size()));
                     if (move.hasSymmetries) {
@@ -262,7 +272,6 @@ public class Player implements Serializable {
                         return move.symmetries.get(random.nextInt(move.symmetries.size()));
                     }
                 } else if (bestMove.get(0).hasSymmetries) {
-
                     bestMove.get(0).symmetries.add(bestMove.get(0));
                     return bestMove.get(0).symmetries.get(random.nextInt(bestMove.get(0).symmetries.size()));
                 }
@@ -283,38 +292,46 @@ public class Player implements Serializable {
             Board.Result winner = board.GetResult();
             if (winner != Board.Result.Unknown || depth == 0) {
                 if ((winner == Board.Result.OWins && ai == Board.Cell.O) || (winner == Board.Result.XWins && ai == Board.Cell.X)) {
+//                    addNodes(depth-1,1);
                     return (depth + 1);
                 } else if ((winner == Board.Result.OWins && ai == Board.Cell.X) || (winner == Board.Result.XWins && ai == Board.Cell.O)) {
+//                    addNodes(depth-1,1);
                     return -(depth + 1);
-                } else if (winner == Board.Result.Tie) {
+                } else if (winner == Board.Result.Tie){
+//                    addNodes(depth -1,1);
                     return 0;
                 }
             }
 
             List<Move> moves = board.findAvailableMoves(board, maxPlayer ? ai : opponent);
 
+//            addNodes(depth, moves.size());
+//            addSymmetricTrimmedBranches(depth,depth - moves.size()-1);
+
             int bestScore;
             if (maxPlayer) {
                 bestScore = -100;
                 for (Move move : moves) {
-                    board.Move(move);
+                    board.move(move);
                     int currentScore = minimax(board, depth - 1, false, alpha, beta);
                     board.clearMove(move);
                     bestScore = Math.max(bestScore, currentScore);
                     alpha = Math.max(alpha, currentScore);
                     if (beta <= alpha) {
+//                        addTrimmedNodes(depth);
                         break;
                     }
                 }
             } else {
                 bestScore = +100;
                 for (Move move : moves) {
-                    board.Move(move);
+                    board.move(move);
                     int currentScore = minimax(board, depth - 1, true, alpha, beta);
                     board.clearMove(move);
                     bestScore = Math.min(bestScore, currentScore);
                     beta = Math.min(currentScore, beta);
                     if (beta <= alpha) {
+//                        addTrimmedNodes(depth);
                         break;
                     }
                 }

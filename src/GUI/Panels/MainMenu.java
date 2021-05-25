@@ -4,9 +4,7 @@ import GUI.ColourPallets.DarkColourPallet;
 import GUI.Dimensions;
 import Players.Player;
 import Players.Players;
-import TicTacToe.Game;
 
-import javax.naming.InvalidNameException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,10 +60,6 @@ public class MainMenu extends JPanel implements ActionListener, DarkColourPallet
             NewGame.setEnabled(false);
             NewGame.setBackground(FRAME_OBJECT_DISABLED);
         }
-    }
-
-    public void setNewGameEnabled(boolean ready) {
-        this.NewGame.setEnabled(ready);
     }
 
     @Override

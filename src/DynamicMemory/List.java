@@ -58,7 +58,6 @@ public class List<E> implements Iterable<E>{
         elements[i] = elements[j];
         elements[j] = tempElement;
 
-        return;
     }
 
     @SuppressWarnings("unchecked")
@@ -86,15 +85,19 @@ public class List<E> implements Iterable<E>{
         size = 0;
     }
 
-    @SuppressWarnings("unchecked")
     public void remove(E e){
         for(int i = 0 ; i < elements.length ; i++ ){
             if(elements[i].equals(e)){
-                Object item = elements[i];
-
-                int numElts = elements.length - (i + 1);
-                System.arraycopy(elements, i + 1, elements, i, numElts);
+                Object[] buffer = new Object[size - 1];
+                for(int j = 0 ; j < i ; j++){
+                    buffer[j] = elements[j];
+                }
+                for(int j = i ; j < size - 1; j++){
+                    buffer[j] = elements[j+1];
+                }
+                elements = buffer;
                 size--;
+                i--;
             }
         }
         //throw new NoSuchElementException("Element does not exist");

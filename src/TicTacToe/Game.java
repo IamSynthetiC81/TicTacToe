@@ -9,12 +9,13 @@ import javax.swing.*;
 
 
 public class Game implements Panels {
-    private final static int DELAY = 1000;
+    private int delay = 100;
     private final Player[] players = new Player[2];
+    private static Timer timer;
 
     public Board board = new Board();
     public GameRecord gameRecord;
-    Timer timer;
+
 
     private final List<Move> GameMoves = new List<>();
 
@@ -28,15 +29,35 @@ public class Game implements Panels {
     }
 
     private Timer setTimer(int player, Board.Cell symbol){
-        timer = new Timer(DELAY, (event)->{
+        timer = new Timer(delay, (event)->{
             Move AIMove = players[player].getMove(board, symbol);
             GameMoves.add(AIMove);
-            board.Move(AIMove);
+            board.move(AIMove);
             BOARD.ButtonsSetEnabled(true);
             nextTurn();
         });
         timer.setRepeats(false);
         return timer;
+    }
+
+    /*      Made for tests      */
+    public void nextTurnTest(){
+        /*
+            Due to Timer errors we created a separate method without Timer and unnecessary GUI elements.
+         */
+        XTurn = !XTurn;
+
+        if(board.GetResult() == Board.Result.Unknown) {
+            if (XTurn && !getPlayerX().isHuman) {
+                Move AIMove = getPlayerX().getMove(board, Board.Cell.X);
+                board.move(AIMove);
+                nextTurnTest();
+            }else if (!XTurn && !getPlayerO().isHuman) {
+                Move AIMove = getPlayerO().getMove(board, Board.Cell.X);
+                board.move(AIMove);
+                nextTurnTest();
+            }
+        }
     }
 
     public void nextTurn(){
@@ -74,15 +95,8 @@ public class Game implements Panels {
             move.setPlayer(Board.Cell.O);
         }
         GameMoves.add(move);
-        board.Move(move);
+        board.move(move);
         nextTurn();
     }
 
-    public void undo(){
-        if(GameMoves.size() > 0) {
-            Move moveToUndo = GameMoves.get(GameMoves.size() - 1);
-            board.board[moveToUndo.x][moveToUndo.y] = Board.Cell.BLANK;
-            GameMoves.remove(moveToUndo);
-        }
-    }
 }

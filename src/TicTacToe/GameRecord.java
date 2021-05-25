@@ -130,26 +130,10 @@ public class GameRecord implements Serializable {
         }
     }
 
-    public boolean betterGame(GameRecord game2) {
-        if(this.getState().ordinal() > game2.getState().ordinal()) {
-            return true;
-        }else if(this.getState().ordinal() == game2.getState().ordinal()) {
-            return this.getOpponentScore() > game2.getOpponentScore();
-        }else if(this.getState().ordinal() == game2.getState().ordinal() && this.getOpponentScore() == game2.getOpponentScore()) {
-            return this.getCurrentDateTime().isAfter(game2.getCurrentDateTime());
-        }
-        return false;
-    }
-
     private void copy(GameRecord gameRecordCopy) {
-//        this.players[0] = gameRecordCopy.getPlayer(0);
-//        this.players[1] = gameRecordCopy.getPlayer(1);
         result = gameRecordCopy.getResult();
-//        this.currentScoreO = gameRecordCopy.getCurrentScoreO();
-//        this.currentScoreX = gameRecordCopy.getCurrentScoreX();
-//        this.currentDateTime = gameRecordCopy.getCurrentDateTime();
-//        this.currentDateTimeS = gameRecordCopy.getCurrentDateTimeS();
         state = gameRecordCopy.getState();
+        opponentScore = gameRecordCopy.getOpponentScore();
     }
 
     public enum State{

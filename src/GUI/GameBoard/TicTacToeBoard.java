@@ -35,8 +35,9 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         }
     }
 
-    public void newGame(Player playerX, Player playerO) {
+    public static Game newGame(Player playerX, Player playerO) {
         game = new Game(playerX , playerO);
+        return game;
     }
 
     public void ButtonsSetEnabled(boolean bool) {
@@ -127,4 +128,7 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         }
     }
 
+    public Game getGame() {
+        return game;
+    }
 }

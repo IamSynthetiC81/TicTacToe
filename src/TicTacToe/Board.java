@@ -1,7 +1,6 @@
 package TicTacToe;
 
 import DynamicMemory.List;
-import ΑΙ.SymmetriesHandler;
 
 import java.util.Arrays;
 
@@ -12,7 +11,7 @@ public class Board implements BoardHandler{
         {Cell.BLANK, Cell.BLANK, Cell.BLANK}
 };
 
-    public void Move(Move move){
+    public void move(Move move){
         if(move != null) {
             this.board[move.x][move.y] = move.inp;
         }
@@ -165,7 +164,7 @@ public class Board implements BoardHandler{
             }
         }
 
-        SymmetriesHandler.checkForSymmetries(moves,board.board);
+//        SymmetriesHandler.checkForSymmetries(moves,board.board);
         return moves;
     }
 

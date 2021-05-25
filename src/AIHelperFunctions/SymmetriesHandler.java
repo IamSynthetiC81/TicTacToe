@@ -1,4 +1,4 @@
-package ΑΙ;
+package AIHelperFunctions;
 
 import DynamicMemory.List;
 import TicTacToe.Board;
@@ -95,7 +95,7 @@ public interface SymmetriesHandler extends BoardHandler{
         for(Move move : moves){
             buffer = new Board();
             buffer.copyBoard(original);
-            buffer.Move(move);
+            buffer.move(move);
             _boards.add(buffer);
         }
 
