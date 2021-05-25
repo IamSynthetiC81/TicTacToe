@@ -1,5 +1,4 @@
 import DynamicMemory.List;
-import GUI.GameBoard.TicTacToeBoard;
 import Players.Player;
 import Players.Players;
 import TicTacToe.Board;
@@ -9,6 +8,8 @@ import TicTacToe.Move;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +38,7 @@ class PlayerTest implements Players {
 
     @Test
     @DisplayName("Player object should be nameable")
-    void insertPlayersName(){
+    void insertPlayersName() throws Exception {
         assertEquals(UUT.getName(),playerName,"Name should be given by the constructor");
 
         String NameTest_10_chars = "1234567890";
@@ -47,8 +48,8 @@ class PlayerTest implements Players {
         String NameTest_20_chars = "12345678901234567890";
         UUT.insertPlayersName(NameTest_20_chars);
         assertEquals(UUT.getName(),NameTest_20_chars,"20 Char names should pass");
-
-        /*Names of 20+ characters can not be added by the GUI*/
+//
+//        /*Names of 20+ characters can not be added by the GUI*/
 //        String NameTest_21_chars = "123456789012345678901";
 //        assertThrows(InvalidPropertiesFormatException.class, () -> UUT.insertPlayersName(NameTest_21_chars));
     }
@@ -106,49 +107,109 @@ class PlayerTest implements Players {
         }
     }
 
-    @Test
-    void insertBestGame() {
-    }
+
 
     @Test
     void betterGame() {
-        final int RECORD_NUMBER = 10;
-
         Player PL1 = UUT = new Player("PL1", Player.Algorithm.HALL);
         Player PL2 =       new Player("PL2", Player.Algorithm.MrBean);
 
-        PL1.addWin();
-        PL1.addWin();
-        PL1.addWin();
-        PL1.addWin();
-        PL1.addWin();
+        GameRecord testRecord1 = new GameRecord(PL1,PL2);
+        GameRecord testRecord2 = new GameRecord(PL1,PL2);
 
-        PL2.addWin();
-        PL2.addWin();
-        PL2.addWin();
+        /**/
 
-        PL2.addLoss();
-        PL2.addLoss();
-        PL2.addLoss();
+        testRecord1.setState(GameRecord.State.Win);
+        testRecord2.setState(GameRecord.State.Defeat);
 
-        assertAll(()->{
-            assertEquals(100,PL1.getScore(),"PL1s score should be 100%");
-            assertEquals(50 ,PL2.getScore(),"PL2s score should be 50%");
-        });
+        assertTrue(UUT.betterGame(testRecord1,testRecord2));
+        /**/
 
-        GameRecord[] testRecords = new GameRecord[RECORD_NUMBER];
-        for(int i = 0 ; i < RECORD_NUMBER ; i++){
-            testRecords[i] = new GameRecord(PL1,PL2);
+        testRecord1.setState(GameRecord.State.Win);
+        testRecord1.setOpponentScore(100);
 
-//            testRecords[i].setResult();
+        testRecord2.setState(GameRecord.State.Win);
+        testRecord2.setOpponentScore(50);
+
+        assertTrue(UUT.betterGame(testRecord1,testRecord2));
+
+        /**/
+
+        testRecord1.setState(GameRecord.State.Win);
+        testRecord1.setOpponentScore(100);
+        testRecord1.setCurrentDateTime(LocalDateTime.now());
+
+
+        testRecord2.setState(GameRecord.State.Win);
+        testRecord2.setOpponentScore(100);
+        testRecord2.setCurrentDateTime(LocalDateTime.now().minusDays(1));
+
+        assertTrue(UUT.betterGame(testRecord1,testRecord2));
+
+    }
+
+    @Test
+    @DisplayName("Testing method insertBestGame")
+    void testInsertBestGame() {
+        Player PL1 = UUT = new Player("PL1", Player.Algorithm.HALL);
+        Player PL2 =       new Player("PL2", Player.Algorithm.MrBean);
+
+        GameRecord[] testGameRecords = new GameRecord[]{
+                new GameRecord(PL1,PL2),
+                new GameRecord(PL1,PL2),
+                new GameRecord(PL1,PL2),
+                new GameRecord(PL1,PL2),
+                new GameRecord(PL1,PL2)
+        };
+
+        testGameRecords[0].setState(GameRecord.State.Tie);
+        testGameRecords[1].setState(GameRecord.State.Win);
+
+        for (int i = 0 ; i < 2 ; i++) {
+            UUT.insertBestGame(testGameRecords[i]);
         }
 
-        Game game = TicTacToeBoard.newGame(PL1,PL2);
-        while(game.board.GetResult() == Board.Result.Unknown){
-            game.parseMove(PL1.getMove(game.board, Board.Cell.X));
-            if(game.board.GetResult() == Board.Result.Unknown){
-                game.parseMove(PL2.getMove(game.board, Board.Cell.O));
-            }
+        assertSame(testGameRecords[0], UUT.getBestGames()[1],"This game record should be seconds");
+        assertSame(testGameRecords[1], UUT.getBestGames()[0],"This game record should be first");
+        assertNull(UUT.getBestGames()[2],"this should be null");
+        assertNull(UUT.getBestGames()[3],"this should be null");
+        assertNull(UUT.getBestGames()[4],"this should be null");
+
+
+        testGameRecords[2].setState(GameRecord.State.Tie);
+        testGameRecords[2].setOpponentScore(30);
+
+        testGameRecords[3].setState(GameRecord.State.Win);
+        testGameRecords[3].setOpponentScore(60);
+
+        testGameRecords[4].setState(GameRecord.State.Tie);
+        testGameRecords[4].setOpponentScore(60);
+
+        for (int i = 2 ; i < testGameRecords.length ; i++) {
+            UUT.insertBestGame(testGameRecords[i]);
+        }
+
+        assertSame(testGameRecords[3], UUT.getBestGames()[0],"This game records should be first");
+        assertSame(testGameRecords[1], UUT.getBestGames()[1],"This game records should be second");
+        assertSame(testGameRecords[4], UUT.getBestGames()[2],"This game records should be third");
+        assertSame(testGameRecords[2], UUT.getBestGames()[3],"This game records should be fourth");
+        assertSame(testGameRecords[0], UUT.getBestGames()[4],"This game records should be fifth");
+
+        GameRecord betterGameRecord = new GameRecord(PL1,PL2);
+
+        betterGameRecord.setState(GameRecord.State.Win);
+        betterGameRecord.setOpponentScore(100);
+
+        UUT.insertBestGame(betterGameRecord);
+
+        assertSame(betterGameRecord,   UUT.getBestGames()[0],"This game records should be first");
+        assertSame(testGameRecords[3], UUT.getBestGames()[1],"This game records should be second");
+        assertSame(testGameRecords[1], UUT.getBestGames()[2],"This game records should be third");
+        assertSame(testGameRecords[4], UUT.getBestGames()[3],"This game records should be fourth");
+        assertSame(testGameRecords[2], UUT.getBestGames()[4],"This game records should be fifth");
+
+        for (GameRecord bestGame : UUT.getBestGames()) {
+            assertNotEquals(testGameRecords[0], bestGame,"This game record is not included in the bestGames array");
         }
     }
 

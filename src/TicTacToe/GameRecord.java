@@ -17,9 +17,9 @@ public class GameRecord implements Serializable {
     private State state;
     private double opponentScore;
 
-    private static final LocalDateTime currentDateTime = LocalDateTime.now();;
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private static final String currentDateTimeS = currentDateTime.format(dateTimeFormatter);
+    private LocalDateTime currentDateTime = LocalDateTime.now();;
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private String currentDateTimeS = currentDateTime.format(dateTimeFormatter);
 
     public GameRecord(Player playerX, Player playerO) {
         players = new Player[PLAYER_COUNT];
@@ -69,6 +69,18 @@ public class GameRecord implements Serializable {
 
     public void setResult(Board.Result result) {
         this.result = result;
+    }
+
+    public void setState(State state){
+        this.state = state;
+    }
+
+    public void setOpponentScore(int opponentScore){
+        this.opponentScore = opponentScore;
+    }
+
+    public void setCurrentDateTime(LocalDateTime dateTime){
+        this.currentDateTime = dateTime;
     }
 
     public void updatePlayers() {

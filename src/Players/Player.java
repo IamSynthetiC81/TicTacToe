@@ -30,7 +30,13 @@ public class Player implements Serializable {
     private GameRecord[] bestGames;
 
     public Player(String name){
-        insertPlayersName(name);
+        try {
+            insertPlayersName(name);
+        }catch (Exception ignored){
+             /* invalid names can never reach here
+                It is checked on GUI.
+             */
+        }
 
         gamesNum =0;
         winsNum = 0;
@@ -43,7 +49,13 @@ public class Player implements Serializable {
     }
 
     public Player(String name, Algorithm ai) {
-        insertPlayersName(name);
+        try {
+            insertPlayersName(name);
+        }catch (Exception ignored){
+            /* invalid names can never reach here
+                It is checked on GUI.
+             */
+        }
 
         gamesNum =0;
         winsNum = 0;
@@ -57,8 +69,10 @@ public class Player implements Serializable {
         AI = new AI(ai);
     }
 
-    public void insertPlayersName(String name)  {
-
+    public void insertPlayersName(String name) throws Exception {
+            if(name.length() > 20){
+                throw new Exception("Name exceeds 20 character limit");
+            }
             this.name = name.strip();
     }
 
@@ -104,19 +118,21 @@ public class Player implements Serializable {
     }
 
     public boolean betterGame(GameRecord betterGame, GameRecord worseGame) {
-        if(betterGame.getState().ordinal() > worseGame.getState().ordinal()) {
+        if (betterGame.getState().ordinal() > worseGame.getState().ordinal()) {
             return true;
-        }else if(betterGame.getState().ordinal() == worseGame.getState().ordinal()) {
+        } else if (betterGame.getState().ordinal() == worseGame.getState().ordinal()) {
             if (betterGame.getOpponentScore() > worseGame.getOpponentScore()) {
                 return true;
-            }
-        }else if(betterGame.getState().ordinal() == worseGame.getState().ordinal() && betterGame.getOpponentScore() == worseGame.getOpponentScore()) {
-            if (betterGame.getCurrentDateTime().isAfter(worseGame.getCurrentDateTime())) {
-                return true;
+            } else if (betterGame.getOpponentScore() == worseGame.getOpponentScore()) {
+                if (betterGame.getCurrentDateTime().isAfter(worseGame.getCurrentDateTime())) {
+                    return true;
+                }
             }
         }
         return false;
     }
+
+
 
     public void insertBestGame(GameRecord game) {
         GameRecord tempGameRecord;

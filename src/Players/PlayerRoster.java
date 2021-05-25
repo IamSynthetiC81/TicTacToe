@@ -2,7 +2,6 @@ package Players;
 
 import DynamicMemory.List;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.NoSuchElementException;
 
@@ -22,17 +21,14 @@ public class PlayerRoster implements Players{
         throw new NoSuchElementException("Player " +name+ " does not exist in database");
     }
 
-    public void addPlayer(Player player) {
+    public void addPlayer(Player player) throws Exception {
         for(int i = 0; i < allPlayers.size(); i++)
             if(allPlayers.get(i).getName().equals(player.getName())){
-                JOptionPane.showMessageDialog(null, "Player "+player.getName()+" is already inserted!", "Warning", JOptionPane.WARNING_MESSAGE);
-                return;
+                throw new Exception("Name is already inserted!");
             }
         if(player.getName() == "") {
-            JOptionPane.showMessageDialog(null, "Insert a valid name!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
+            throw new Exception("Insert a valid name!");
         }
-
         else
             allPlayers.add(player);
     }
@@ -40,11 +36,17 @@ public class PlayerRoster implements Players{
     public void sortPlayers() {
         Player tempPlayer;
 
-        for(int i = 0; i < allPlayers.size() - 1; i++)
-            for(int j = i + 1; j < allPlayers.size(); j++)
-                if(allPlayers.get(i).getScore() < allPlayers.get(j).getScore())
+        for(int i = 0; i < allPlayers.size() - 1; i++) {
+            for (int j = i + 1; j < allPlayers.size(); j++) {
+                if (allPlayers.get(i).getScore() < allPlayers.get(j).getScore()) {
                     allPlayers.changeOrder(i, j);
-
+                } else if (allPlayers.get(i).getScore() == allPlayers.get(j).getScore()) {
+                    if (allPlayers.get(i).getGamesNum() < allPlayers.get(j).getGamesNum()) {
+                        allPlayers.changeOrder(i, j);
+                    }
+                }
+            }
+        }
     }
 
     public String[] findPlayersName() {
@@ -54,15 +56,6 @@ public class PlayerRoster implements Players{
             allNames[i] = allPlayers.get(i).getName();
 
         return allNames;
-    }
-
-    public Player findPlayer(String name) {
-        for(int i = 0; i < allPlayers.size(); i++)
-            if(allPlayers.get(i).getName().equals(name))
-                return allPlayers.get(i);
-
-        System.out.println("No player found with this name.");
-        return null;
     }
 
     public List<Player> getPlayers(){
@@ -125,16 +118,16 @@ public class PlayerRoster implements Players{
                 MrBean_Present = true;
             }
         }
-        if(!HALL_Present){
-            this.addPlayer(HALL);
-        }if(!MrBean_Present){
-            addPlayer(MrBean);
-        }
+//        if(!HALL_Present){
+//            this.addPlayer(HALL);
+//        }if(!MrBean_Present){
+//            addPlayer(MrBean);
+//        }
     }
 
     public List<Player> findHallOfFame(int n) {
 
-        if(/*n >= allPlayers.size() || */n < 0){
+        if(n < 0){
             throw new IndexOutOfBoundsException("Index " + n + ", Size " + n);
         }
 
