@@ -6,10 +6,6 @@ import GUI.SidePanels.SidePanel;
 
 public interface Panels{
 
-
-//    LeftPanel           LEFT_PANEL      = new LeftPanel();
-//    RightPanel          RIGHT_PANEL     = new RightPanel();
-
     SidePanel           LEFT_PANEL      = new SidePanel("X");
     SidePanel           RIGHT_PANEL     = new SidePanel("O");
 

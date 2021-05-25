@@ -9,13 +9,12 @@ import javax.swing.*;
 
 
 public class Game implements Panels {
-    private int delay = 100;
+    private final int DELAY = 1000;
     private final Player[] players = new Player[2];
     private static Timer timer;
 
     public Board board = new Board();
     public GameRecord gameRecord;
-
 
     private final List<Move> GameMoves = new List<>();
 
@@ -29,7 +28,7 @@ public class Game implements Panels {
     }
 
     private Timer setTimer(int player, Board.Cell symbol){
-        timer = new Timer(delay, (event)->{
+        timer = new Timer(DELAY, (event)->{
             Move AIMove = players[player].getMove(board, symbol);
             GameMoves.add(AIMove);
             board.move(AIMove);

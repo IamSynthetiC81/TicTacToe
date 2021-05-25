@@ -17,7 +17,6 @@ public class WinnerPanel extends JPanel implements Dimensions, DarkColourPallet,
         this.setBackground(TINT);
         this.setOpaque(true);
         this.setLayout(new BorderLayout(10, 10));
-//        this.setVisible(false);
         this.setVisible(true);
 
         this.add(winnerLabel, BorderLayout.NORTH);

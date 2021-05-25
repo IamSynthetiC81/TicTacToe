@@ -58,25 +58,6 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
         }
     }
 
-    public void protectButtons(Boolean bool){
-
-        if(!bool){
-            for(int i = 0 ; i < 3 ; i ++){
-                for(int j = 0 ; j < 3 ; j++ ){
-                    buffer[i][j] = buttons[(i*3) +j].isEnabled();
-                    buttons[(i*3) +j].setEnabled(false);
-                }
-            }
-        }else{
-            for(int i = 0 ; i < 3 ; i ++){
-                for(int j = 0 ; j < 3 ; j++ ){
-                    buttons[(i*3) +j].setEnabled(buffer[i][j]);
-                }
-            }
-        }
-
-    }
-
     public void nextTurn(){
         game.nextTurn();
     }
@@ -123,7 +104,6 @@ public class TicTacToeBoard extends JPanel implements ActionListener, DarkColour
             if (e.getSource() == buttons[i]) {
                 ButtonsSetEnabled(false);
                 game.parseMove(new Move(i / 3, i % 3));
-//                updateBoard();
             }
         }
     }

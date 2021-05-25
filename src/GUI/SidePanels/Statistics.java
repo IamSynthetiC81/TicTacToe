@@ -84,13 +84,6 @@ public class Statistics extends JPanel implements Panels, Dimensions, DarkColour
             RECENT_SCORE.setPreferredSize(new Dimension(StatPanelWidth-20,25));
             BEST_Best_GAMES.setPreferredSize(new Dimension(StatPanelWidth-10,100));
 
-//            Name.setVisible(true);
-//            TotalGames.setVisible(true);
-//            WON.setVisible(true);
-//            LOST.setVisible(true);
-//            TOTAL_SCORE.setVisible(true);
-//            RECENT_SCORE.setVisible(true);
-//            BEST_Best_GAMES.setVisible(true);
             this.setVisible(true);
 
             this.add(Name);
@@ -111,23 +104,6 @@ public class Statistics extends JPanel implements Panels, Dimensions, DarkColour
                 this.setFont(new Font("TimesRoman", Font.BOLD, 13));
 
             }
-
-            Stat(GameRecord game) {
-                String outcome;
-                if(game.getState() == GameRecord.State.Defeat){
-                    outcome = "Defeat";
-                }else if(game.getState() == GameRecord.State.Win){
-                    outcome = "Victory";
-                }else{
-                    outcome = "Tie";
-                }
-
-                this.setBackground(FRAME);
-                this.setForeground(Color.WHITE);
-                this.setFont(new Font("TimesRoman", Font.BOLD, 13));
-                this.setText(game.getPlayer(0).getName() + " VS " + game.getPlayer(1).getName() + "    " + outcome);
-            }
-
         }
 
         private class BestGames extends JPanel{

@@ -109,7 +109,6 @@ public class List<E> implements Iterable<E>{
                 i--;
             }
         }
-        //throw new NoSuchElementException("Element does not exist");
     }
 
     public int size(){

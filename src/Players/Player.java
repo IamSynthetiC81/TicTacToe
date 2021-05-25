@@ -4,7 +4,6 @@ import AIHelperFunctions.AIStatistics;
 import AIHelperFunctions.SymmetriesHandler;
 import DynamicMemory.List;
 import TicTacToe.Board;
-import TicTacToe.BoardHandler;
 import TicTacToe.GameRecord;
 import TicTacToe.Move;
 
@@ -131,7 +130,6 @@ public class Player implements Serializable {
         }
         return false;
     }
-
 
 
     public void insertBestGame(GameRecord game) {
@@ -288,8 +286,6 @@ public class Player implements Serializable {
                     if (move.hasSymmetries) {
                         move.symmetries.add(move);
                         return move.symmetries.get(random.nextInt(move.symmetries.size()));
-                    }else{
-                        return move;
                     }
                 } else if (bestMove.get(0).hasSymmetries) {
                     bestMove.get(0).symmetries.add(bestMove.get(0));
@@ -355,9 +351,6 @@ public class Player implements Serializable {
                         break;
                     }
                 }
-            }
-            if(depth == 9){
-                System.out.println(bestScore);
             }
             return bestScore;
         }

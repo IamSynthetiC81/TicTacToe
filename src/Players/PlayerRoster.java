@@ -34,8 +34,6 @@ public class PlayerRoster implements Players{
     }
 
     public void sortPlayers() {
-        Player tempPlayer;
-
         for(int i = 0; i < allPlayers.size() - 1; i++) {
             for (int j = i + 1; j < allPlayers.size(); j++) {
                 if (allPlayers.get(i).getScore() < allPlayers.get(j).getScore()) {

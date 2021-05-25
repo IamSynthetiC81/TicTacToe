@@ -1,11 +1,10 @@
 package TicTacToe;
 
-import AIHelperFunctions.SymmetriesHandler;
 import DynamicMemory.List;
 
 import java.util.Arrays;
 
-public class Board implements BoardHandler{
+public class Board{
     public Cell[][] board = new Cell[][]{
         {Cell.BLANK, Cell.BLANK, Cell.BLANK},
         {Cell.BLANK, Cell.BLANK, Cell.BLANK},
@@ -117,13 +116,6 @@ public class Board implements BoardHandler{
         X,
         O,
         BLANK;
-        public Cell nextPlayer(){
-            if(this.equals(Cell.X)){
-                return Cell.O;
-            }else{
-                return Cell.X;
-            }
-        }
     }
 
     public void copyBoard(Board source) {
@@ -165,11 +157,7 @@ public class Board implements BoardHandler{
             }
         }
 
-        SymmetriesHandler.checkForSymmetries(moves,board.board);
+//        SymmetriesHandler.checkForSymmetries(moves,board.board);
         return moves;
     }
-
-
-
-
 }

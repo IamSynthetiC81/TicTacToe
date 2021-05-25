@@ -3,7 +3,6 @@ package GUI.GameBoard;
 import GUI.ColourPallets.DarkColourPallet;
 import GUI.Dimensions;
 import Players.Player;
-import TicTacToe.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,6 @@ public class MainFrameSubPanel extends JLayeredPane implements Dimensions, DarkC
 
     public MainFrameSubPanel() {
         this.setPreferredSize(new Dimension(GameBoard_Width, GameBoard_Height));
-
 
         this.add(GameBoard,1);
         this.add(winnerPanel, 0);

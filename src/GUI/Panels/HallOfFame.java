@@ -26,7 +26,6 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
 
         scoreboard.setBounds(10, 10, PANEL_WIDTH - 20, PANEL_HEIGHT);
 
-//        this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         this.setLayout(null);
         this.add(Back);
         this.add(scoreboard);
@@ -35,8 +34,6 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
         Back.setFocusable(false);
         Back.setBackground(BUTTON);
         Back.addActionListener(this);
-
-
     }
 
     public void update(){
@@ -153,11 +150,6 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
                 Score.setHorizontalAlignment(SwingConstants.CENTER);
                 GamesPlayed.setHorizontalAlignment(SwingConstants.CENTER);
 
-//                Player.setBorder(BorderFactory.createRaisedBevelBorder());
-//                Score.setBorder(BorderFactory.createRaisedBevelBorder());
-//                GamesPlayed.setBorder(BorderFactory.createRaisedBevelBorder());
-
-
                 this.add(Player, BorderLayout.WEST);
                 this.add(Score, BorderLayout.CENTER);
                 this.add(GamesPlayed, BorderLayout.EAST);
@@ -172,7 +164,6 @@ public class HallOfFame extends JPanel implements ActionListener, Panels, DarkCo
             for(int i = 0 ; i < records.size() ; i++ ) {
                 Rows[i].update(records.get(i));
             }
-
         }
     }
 
